@@ -33,7 +33,6 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     public void OnDrag(PointerEventData eventData)
     {
         CheckPosition();
-        Debug.Log(indexToDrop);
         _rectTransform.anchoredPosition += eventData.delta / _canvas.scaleFactor;
     }
     
