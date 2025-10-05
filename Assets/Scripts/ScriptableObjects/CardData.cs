@@ -8,5 +8,6 @@ namespace ScriptableObjects
         public string cardName;
         public string description;
         public Sprite image;
+        public int manaCost;
     }
 }

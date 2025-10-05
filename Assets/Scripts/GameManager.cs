@@ -1,16 +1,15 @@
+using System;
+using ScriptableObjects;
+using UI;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private Hand handManager;
+    [SerializeField] private UIHandManager UIHandManager;
+    private void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        UIHandManager.Init();
+        handManager.Init();
     }
 }

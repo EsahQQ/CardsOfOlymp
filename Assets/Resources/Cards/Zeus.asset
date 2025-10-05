@@ -15,3 +15,4 @@ MonoBehaviour:
   cardName: Zeus
   description: Zeus is the best god
   image: {fileID: 0}
+  manaCost: 2

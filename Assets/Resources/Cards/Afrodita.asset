@@ -15,3 +15,4 @@ MonoBehaviour:
   cardName: Afrodita
   description: Afrodita is god of love
   image: {fileID: 0}
+  manaCost: 4

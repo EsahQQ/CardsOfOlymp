@@ -15,3 +15,4 @@ MonoBehaviour:
   cardName: Poseydon
   description: Poseydon is king of seas
   image: {fileID: 0}
+  manaCost: 5

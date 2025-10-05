@@ -1,14 +1,17 @@
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(RectTransform))]
 [RequireComponent(typeof(CanvasGroup))]
-public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    private RectTransform _rectTransform;
     private Canvas _canvas;
+    private RectTransform _rectTransform;
     private CanvasGroup _canvasGroup;
+
+    private Canvas _cardCanvas;
 
     private int indexToDrop;
     
@@ -18,8 +21,8 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     {
         _rectTransform = GetComponent<RectTransform>();
         _canvasGroup = GetComponent<CanvasGroup>();
-        
-        _canvas = GetComponentInParent<Canvas>();
+        _cardCanvas = GetComponent<Canvas>();
+        _canvas = GetComponentInParent<Canvas>().rootCanvas;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -59,5 +62,17 @@ public class Card : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         }
         
         indexToDrop = 0;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        _cardCanvas.overrideSorting = true;
+        _cardCanvas.sortingOrder = 1;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        _cardCanvas.sortingOrder = 0;
+        _cardCanvas.overrideSorting = false;
     }
 }
