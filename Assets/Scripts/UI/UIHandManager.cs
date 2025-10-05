@@ -27,7 +27,14 @@ namespace UI
         private void SpawnCardInHand(CardData cardData)
         {
             var card = Instantiate(cardPrefab, hand.transform);
+            InitializeCard(card, cardData);
             card.SetActive(true);
+        }
+
+        private void InitializeCard(GameObject card, CardData cardData)
+        {
+            var cardVisual = card.GetComponent<CardVisual>();
+            cardVisual.Init(cardData);
         }
     }
 }

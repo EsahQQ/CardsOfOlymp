@@ -368,6 +368,7 @@ GameObject:
   - component: {fileID: 8129932227065698027}
   - component: {fileID: 8981649477599695396}
   - component: {fileID: 4197014659851859737}
+  - component: {fileID: 1966541902569765534}
   m_Layer: 5
   m_Name: Card
   m_TagString: Untagged
@@ -458,7 +459,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d640b5065a4b6cc4bafc5586cdf9e621, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 0}
   DefaultParent: {fileID: 0}
 --- !u!223 &8981649477599695396
 Canvas:
@@ -500,6 +500,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1966541902569765534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5880759628985508781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5acaf8730817d74ca786eced24426cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CardVisual
+  cardName: {fileID: 7328619358554924456}
+  description: {fileID: 6109055046490677405}
+  manaCost: {fileID: 1960447183867760787}
+  image: {fileID: 5578134089090407193}
 --- !u!1 &6877306208320960563
 GameObject:
   m_ObjectHideFlags: 0
