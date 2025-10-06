@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Zeus
   description: Zeus is the best god
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: ad7fc5a7349b6e7409db7b70bc3b7754, type: 3}
   manaCost: 2
+  ability: {fileID: 0}

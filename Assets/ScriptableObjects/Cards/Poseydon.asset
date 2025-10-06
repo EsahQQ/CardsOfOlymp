@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Poseydon
   description: Poseydon is king of seas
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 42d8d8d4ae2ed0e40be7c1bccdf3a0ac, type: 3}
   manaCost: 5
+  ability: {fileID: 0}

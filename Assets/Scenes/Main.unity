@@ -1282,6 +1282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1429427919}
   - component: {fileID: 1429427920}
+  - component: {fileID: 1429427921}
   m_Layer: 5
   m_Name: Enemy
   m_TagString: Untagged
@@ -1326,6 +1327,19 @@ MonoBehaviour:
   enemyName: {fileID: 710497355}
   enemyHealth: {fileID: 1419962125}
   enemyImage: {fileID: 1898429812}
+--- !u!114 &1429427921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429427918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b153125369422be4d9e75980acb0b6de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy.Enemy
+  enemyData: {fileID: 11400000, guid: c0f8b4f873c80d34da43bd75b51ad032, type: 2}
 --- !u!1 &1589272068
 GameObject:
   m_ObjectHideFlags: 0

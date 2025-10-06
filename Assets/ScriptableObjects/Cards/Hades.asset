@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 739b83eecf824514e8c15fc0150dcc24, type: 3}
-  m_Name: New Card
-  m_EditorClassIdentifier: Assembly-CSharp::Card.CardData
-  cardName: 
-  description: 
-  image: {fileID: 0}
-  manaCost: 0
+  m_Name: Hades
+  m_EditorClassIdentifier: 
+  cardName: Hades
+  description: Hades is god of the hell
+  image: {fileID: 21300000, guid: 8478c3ffe86cc564c99f2cf067437325, type: 3}
+  manaCost: 3
+  ability: {fileID: 0}
