@@ -14,6 +14,7 @@ namespace Enemy
         {
             enemyName.text = enemyData.enemyName;
             enemyHealth.maxValue = enemyData.healthPoints;
+            enemyHealth.value =  enemyData.healthPoints;
             enemyImage.sprite = enemyData.image;
         }
     }
