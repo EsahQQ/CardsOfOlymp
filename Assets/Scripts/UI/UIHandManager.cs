@@ -1,5 +1,6 @@
 ﻿using System;
-using ScriptableObjects;
+using Battle;
+using Card;
 using UnityEngine;
 
 namespace UI
