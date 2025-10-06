@@ -9,5 +9,6 @@ namespace Card
         public string description;
         public Sprite image;
         public int manaCost;
+        public Ability ability;
     }
 }
