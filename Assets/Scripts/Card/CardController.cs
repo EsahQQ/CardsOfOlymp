@@ -85,13 +85,10 @@ namespace Card
         {
             transform.SetParent(DefaultParent);
             transform.SetSiblingIndex(_placeholder.transform.GetSiblingIndex());
-
-            // --- НОВАЯ ЛОГИКА ---
-            // Вместо Destroy, мы ВЫКЛЮЧАЕМ плейсхолдер и убираем его в сторону
-            _placeholder.SetActive(false); // <--- Вот оно!
-            _placeholder.transform.SetParent(_rootCanvas.transform); // Хорошая практика, чтобы он не остался в Layout Group
-
-            // Возвращаем карте способность получать события мыши
+            
+            _placeholder.SetActive(false); 
+            _placeholder.transform.SetParent(_rootCanvas.transform); 
+            
             _canvasGroup.blocksRaycasts = true;
         }
 
