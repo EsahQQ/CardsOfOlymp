@@ -1,7 +1,7 @@
-using Card.Abilities;
+using CardComponents.Abilities;
 using UnityEngine;
 
-namespace Card
+namespace CardComponents
 {
     [CreateAssetMenu(fileName = "New Card", menuName = "Card")]
     public class CardData : ScriptableObject

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Enemy
+namespace EnemyComponents
 {
     public class EnemyVisual : MonoBehaviour
     {

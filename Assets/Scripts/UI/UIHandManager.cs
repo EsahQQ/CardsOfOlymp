@@ -1,41 +1,43 @@
-﻿using System;
-using Battle;
-using Card;
+﻿using BattleComponents;
+using CardComponents;
 using UnityEngine;
 
 namespace UI
 {
     public class UIHandManager : MonoBehaviour
     {
-        [SerializeField] private GameObject hand;
+        [SerializeField] private Transform handContainer; 
         [SerializeField] private GameObject cardPrefab;
+
+        private LogicalHand _linkedHandModel;
         
-        public void Init()
+        public void LinkToHandModel(LogicalHand handModel)
         {
-            Hand.Instance.OnCardTaken += OnCardTaken;
+            _linkedHandModel = handModel;
+
+            _linkedHandModel.OnCardAdded += OnCardAddedToHand;
+            _linkedHandModel.OnCardRemoved += OnCardRemovedFromHand;
         }
 
         private void OnDestroy()
         {
-            Hand.Instance.OnCardTaken -= OnCardTaken;
+            if (_linkedHandModel != null)
+            {
+                _linkedHandModel.OnCardAdded -= OnCardAddedToHand;
+                _linkedHandModel.OnCardRemoved -= OnCardRemovedFromHand;
+            }
         }
 
-        private void OnCardTaken(object sender, CardData e)
+        private void OnCardAddedToHand(CardData cardData)
         {
-            SpawnCardInHand(e);
+            var cardObject = Instantiate(cardPrefab, handContainer);
+            
+            cardObject.GetComponent<Card>().Init(cardData);
         }
 
-        private void SpawnCardInHand(CardData cardData)
+        private void OnCardRemovedFromHand(CardData cardData)
         {
-            var card = Instantiate(cardPrefab, hand.transform);
-            InitializeCard(card, cardData);
-            card.SetActive(true);
-        }
-
-        private void InitializeCard(GameObject card, CardData cardData)
-        {
-            var cardVisual = card.GetComponent<CardVisual>();
-            cardVisual.Init(cardData);
+            // Здесь логика удаления GameObject'а карты из руки
         }
     }
 }

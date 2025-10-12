@@ -1,64 +1,49 @@
-using System.Linq;
-using Battle;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
-namespace Card
+namespace CardComponents
 {
-    [RequireComponent(typeof(RectTransform))]
-    [RequireComponent(typeof(CanvasGroup))]
-    public class CardController : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler//, IPointerEnterHandler, IPointerExitHandler
+    [RequireComponent(typeof(Card))] // Убедимся, что главный компонент Card всегда есть
+    public class CardDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         [SerializeField] private GameObject placeholderPrefab;
-        
-        private Canvas _rootCanvas;
-        private RectTransform _rectTransform;
-        private CanvasGroup _canvasGroup;
 
-        private Canvas _cardCanvas;
-    
-        [HideInInspector] public Transform DefaultParent;
-        
+        private Canvas _rootCanvas;
+        private CanvasGroup _canvasGroup;
         private GameObject _placeholder;
+        
+        // Ссылка на главный компонент, чтобы знать, куда возвращаться
+        [HideInInspector] public Transform DefaultParent;
 
         private void Awake()
         {
-            _rectTransform = GetComponent<RectTransform>();
             _canvasGroup = GetComponent<CanvasGroup>();
-            _cardCanvas = GetComponent<Canvas>();
             _rootCanvas = GetComponentInParent<Canvas>().rootCanvas;
-            
+
             if (placeholderPrefab != null)
             {
                 _placeholder = Instantiate(placeholderPrefab, _rootCanvas.transform);
                 _placeholder.name = "Placeholder for " + this.gameObject.name;
-                
                 _placeholder.SetActive(false);
             }
         }
-
+        
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if (placeholderPrefab == null)
-            {
-                Debug.LogError("Префаб плейсхолдера не назначен в инспекторе!", this);
-                return;
-            }
-            
             DefaultParent = transform.parent;
             
             _placeholder.transform.SetParent(DefaultParent);
-            _placeholder.transform.SetSiblingIndex(this.transform.GetSiblingIndex());
+            _placeholder.transform.SetSiblingIndex(transform.GetSiblingIndex());
             _placeholder.SetActive(true);
             
             transform.SetParent(_rootCanvas.transform);
             _canvasGroup.blocksRaycasts = false;
         }
-    
+
         public void OnDrag(PointerEventData eventData)
         {
-            _rectTransform.anchoredPosition += eventData.delta / _rootCanvas.scaleFactor;
+            // Важно: RectTransform теперь нужно получать отдельно
+            (transform as RectTransform).anchoredPosition += eventData.delta / _rootCanvas.scaleFactor;
             
             if (_placeholder.transform.parent != DefaultParent)
             {
@@ -68,7 +53,7 @@ namespace Card
             int newSiblingIndex = DefaultParent.childCount;
             for (int i = 0; i < DefaultParent.childCount; i++)
             {
-                if (this.transform.position.x < DefaultParent.GetChild(i).position.x)
+                if (transform.position.x < DefaultParent.GetChild(i).position.x)
                 {
                     newSiblingIndex = i;
                     if (_placeholder.transform.GetSiblingIndex() < newSiblingIndex)
@@ -80,7 +65,7 @@ namespace Card
             }
             _placeholder.transform.SetSiblingIndex(newSiblingIndex);
         }
-    
+
         public void OnEndDrag(PointerEventData eventData)
         {
             transform.SetParent(DefaultParent);
@@ -91,17 +76,5 @@ namespace Card
             
             _canvasGroup.blocksRaycasts = true;
         }
-
-        /*public void OnPointerEnter(PointerEventData eventData)
-        {
-            _cardCanvas.overrideSorting = true;
-            _cardCanvas.sortingOrder = 1;
-        }
-
-        public void OnPointerExit(PointerEventData eventData)
-        {
-            _cardCanvas.sortingOrder = 0;
-            _cardCanvas.overrideSorting = false;
-        }*/
     }
 }

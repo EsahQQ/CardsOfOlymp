@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Card;
+using CardComponents;
 using UnityEngine;
 
-namespace Battle
+namespace BattleComponents
 {
     [CreateAssetMenu(fileName = "New Deck", menuName = "Deck")]
     public class DeckData : ScriptableObject

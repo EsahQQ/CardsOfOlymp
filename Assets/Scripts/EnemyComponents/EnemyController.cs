@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace Enemy
+namespace EnemyComponents
 {
-    public class Enemy : MonoBehaviour
+    public class EnemyController : MonoBehaviour
     {
         [SerializeField] private EnemyData enemyData;
 
@@ -16,6 +16,11 @@ namespace Enemy
         private void Start()
         {
             _visual.Init(enemyData);
+        }
+
+        public void TakeDamage(int damage)
+        {
+            
         }
     }
 }

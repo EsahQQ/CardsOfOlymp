@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using EnemyComponents;
 
-namespace Card.Abilities
+namespace CardComponents.Abilities
 {
     public abstract class Ability : ScriptableObject
     {

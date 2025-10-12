@@ -1,8 +1,9 @@
+using CardComponents;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Card
+namespace CardComponents
 {
     public class CardVisual : MonoBehaviour
     {

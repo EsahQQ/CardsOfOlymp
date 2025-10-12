@@ -1,17 +1,72 @@
-using Battle;
+using BattleComponents;
 using UI;
 using UnityEngine;
+using CardComponents;
 
 namespace Core
 {
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] private Hand handManager;
-        [SerializeField] private UIHandManager UIHandManager;
+        [Header("Настройки Боя")]
+        [SerializeField] private DeckData startingDeckData;
+        [SerializeField] private int maxHandSize = 5;
+        [SerializeField] private int startingHandSize = 4;
+        
+        [Header("Ссылки на View")]
+        [SerializeField] private UIHandManager uiHandManager;
+        [SerializeField] private Transform playerField;
+        [SerializeField] private Transform enemyContainer;
+        
+        private LogicalDeck _deck;
+        private LogicalHand _hand;
+
         private void Start()
         {
-            UIHandManager.Init();
-            handManager.Init();
+            _deck = new LogicalDeck(startingDeckData);
+            _hand = new LogicalHand(maxHandSize);
+            
+            uiHandManager.LinkToHandModel(_hand);
+            
+            StartGame();
+        }
+
+        private void StartGame()
+        {
+            for (int i = 0; i < startingHandSize; i++)
+            {
+                AddCard();
+            }
+        }
+        
+        public void AddCard()
+        {
+            CardData cardToDraw = _deck.DrawCard();
+            if (cardToDraw != null)
+            {
+                _hand.TryAddCard(cardToDraw);
+            }
+            else
+            {
+                Debug.Log("Колода пуста!");
+            }
+        }
+        
+        public void EndPlayerTurn()
+        {
+            Debug.Log("Ход игрока завершен. Активируем способности карт.");
+            var cardsOnField = playerField.GetComponentsInChildren<Card>();
+            var targetEnemy = enemyContainer.GetComponentInChildren<EnemyComponents.EnemyController>();
+
+            if (targetEnemy == null) return;
+            
+            
+            foreach (var card in cardsOnField)
+            {
+                if (card.CardData != null && card.CardData.ability != null)
+                {
+                    card.CardData.ability.Execute(targetEnemy.gameObject);
+                }
+            }
         }
     }
 }

@@ -2,20 +2,19 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections;
 using Unity.VisualScripting;
-using Card;
+using CardComponents;
 
-namespace Battle
+namespace BattleComponents
 {
     public class DropPlace : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         public void OnPointerEnter(PointerEventData eventData)
         {
             if (eventData.pointerDrag == null) return;
-            CardController card = eventData.pointerDrag.GetComponent<CardController>();
-            
-            if (card != null)
+            var dragger = eventData.pointerDrag.GetComponent<CardDragger>();
+            if (dragger != null)
             {
-                card.DefaultParent = this.transform;
+                dragger.DefaultParent = this.transform;
             }
         }
 
