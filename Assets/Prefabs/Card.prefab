@@ -369,6 +369,7 @@ GameObject:
   - component: {fileID: 8981649477599695396}
   - component: {fileID: 4197014659851859737}
   - component: {fileID: 1966541902569765534}
+  - component: {fileID: 265081126626567144}
   m_Layer: 5
   m_Name: Card
   m_TagString: Untagged
@@ -459,6 +460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d640b5065a4b6cc4bafc5586cdf9e621, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  placeholderPrefab: {fileID: 1012163394647912460, guid: 4fd1c4036f418b740bb4835220e5b6a6, type: 3}
   DefaultParent: {fileID: 0}
 --- !u!223 &8981649477599695396
 Canvas:
@@ -516,6 +518,26 @@ MonoBehaviour:
   description: {fileID: 6109055046490677405}
   manaCost: {fileID: 1960447183867760787}
   image: {fileID: 5578134089090407193}
+--- !u!114 &265081126626567144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5880759628985508781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
 --- !u!1 &6877306208320960563
 GameObject:
   m_ObjectHideFlags: 0

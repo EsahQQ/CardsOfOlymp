@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 
-
-namespace Card
+namespace Card.Abilities
 {
     public abstract class Ability : ScriptableObject
     {
-        public string abilityName;
+        public string AbilityName;
         
         public abstract void Execute(GameObject target); 
     }
