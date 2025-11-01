@@ -21,7 +21,6 @@ namespace BattleComponents
         {
             CardsInDrop.Add(card);
             OnCardAdded?.Invoke(card);
-            Debug.Log(CardsInDrop.Count);
             return true;
         }
 
