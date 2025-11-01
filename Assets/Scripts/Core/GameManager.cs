@@ -53,12 +53,10 @@ namespace Core
         
         public void EndPlayerTurn()
         {
-            Debug.Log("Ход игрока завершен. Активируем способности карт.");
             var cardsOnField = playerField.GetComponentsInChildren<Card>();
             var targetEnemy = enemyContainer.GetComponentInChildren<EnemyComponents.EnemyController>();
 
             if (targetEnemy == null) return;
-            
             
             foreach (var card in cardsOnField)
             {

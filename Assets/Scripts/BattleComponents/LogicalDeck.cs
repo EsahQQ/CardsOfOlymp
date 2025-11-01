@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using CardComponents;
-using UnityEngine; // Для Random
+using UnityEngine; 
 
 namespace BattleComponents
 {

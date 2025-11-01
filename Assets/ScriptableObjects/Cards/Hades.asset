@@ -16,4 +16,4 @@ MonoBehaviour:
   description: Hades is god of the hell
   image: {fileID: 21300000, guid: 8478c3ffe86cc564c99f2cf067437325, type: 3}
   manaCost: 3
-  ability: {fileID: 0}
+  ability: {fileID: 11400000, guid: f77dec4f09711b747bbb5679b810df65, type: 2}

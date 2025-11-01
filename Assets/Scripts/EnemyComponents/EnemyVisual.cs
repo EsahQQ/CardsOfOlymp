@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,21 @@ namespace EnemyComponents
             enemyHealth.maxValue = enemyData.healthPoints;
             enemyHealth.value =  enemyData.healthPoints;
             enemyImage.sprite = enemyData.image;
+        }
+
+        private void Start()
+        {
+            EnemyController.Instance.OnHealthChanged += OnHealthChanged;
+        }
+
+        private void OnHealthChanged(object sender, int e)
+        {
+            enemyHealth.value = e;
+        }
+
+        private void OnDestroy()
+        {
+            EnemyController.Instance.OnHealthChanged -= OnHealthChanged;
         }
     }
 }

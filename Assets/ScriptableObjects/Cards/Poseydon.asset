@@ -16,4 +16,4 @@ MonoBehaviour:
   description: Poseydon is king of seas
   image: {fileID: 21300000, guid: 42d8d8d4ae2ed0e40be7c1bccdf3a0ac, type: 3}
   manaCost: 5
-  ability: {fileID: 0}
+  ability: {fileID: 11400000, guid: f77dec4f09711b747bbb5679b810df65, type: 2}

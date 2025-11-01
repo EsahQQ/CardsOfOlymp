@@ -16,4 +16,4 @@ MonoBehaviour:
   description: Zeus is the best god
   image: {fileID: 21300000, guid: ad7fc5a7349b6e7409db7b70bc3b7754, type: 3}
   manaCost: 2
-  ability: {fileID: 0}
+  ability: {fileID: 11400000, guid: f77dec4f09711b747bbb5679b810df65, type: 2}
