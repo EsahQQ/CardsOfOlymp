@@ -11,6 +11,7 @@ namespace Core
         [SerializeField] private DeckData startingDeckData;
         [SerializeField] private int maxHandSize = 5;
         [SerializeField] private int startingHandSize = 4;
+        [SerializeField] private int cardsPerTurn = 1;
         
         [Header("Ссылки на View")]
         [SerializeField] private UIHandManager uiHandManager;
@@ -28,6 +29,7 @@ namespace Core
             _drop = new LogicalDrop();
             
             uiHandManager.LinkToHandModel(_hand);
+            _deck.LinkToHandModel(_hand);
             
             
             StartGame();
@@ -66,14 +68,24 @@ namespace Core
                 if (card.CardData != null && card.CardData.ability != null)
                 {
                     card.CardData.ability.Execute(targetEnemy.gameObject);
+                    
+                }
+            }
+            
+            foreach (var card in cardsOnField)
+            {
+                if (card.CardData != null)
+                {
                     _hand.RemoveCard(card);
                     _drop.AddCard(card.CardData);
                 }
             }
+            
+            _deck.TakeCards(cardsPerTurn);
 
             if (targetEnemy.CurrentHealth > 0)
             {
-                
+                //Способность енеми
             }
         }
     }
