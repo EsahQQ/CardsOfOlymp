@@ -19,13 +19,16 @@ namespace Core
         
         private LogicalDeck _deck;
         private LogicalHand _hand;
+        private LogicalDrop _drop;
 
         private void Start()
         {
             _deck = new LogicalDeck(startingDeckData);
             _hand = new LogicalHand(maxHandSize);
+            _drop = new LogicalDrop();
             
             uiHandManager.LinkToHandModel(_hand);
+            
             
             StartGame();
         }
@@ -63,7 +66,14 @@ namespace Core
                 if (card.CardData != null && card.CardData.ability != null)
                 {
                     card.CardData.ability.Execute(targetEnemy.gameObject);
+                    _hand.RemoveCard(card);
+                    _drop.AddCard(card.CardData);
                 }
+            }
+
+            if (targetEnemy.CurrentHealth > 0)
+            {
+                
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using BattleComponents;
 using CardComponents;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace UI
@@ -35,9 +36,9 @@ namespace UI
             cardObject.GetComponent<Card>().Init(cardData);
         }
 
-        private void OnCardRemovedFromHand(CardData cardData)
+        private void OnCardRemovedFromHand(Card card)
         {
-            // Здесь логика удаления GameObject'а карты из руки
+            card.gameObject.SetActive(false);
         }
     }
 }

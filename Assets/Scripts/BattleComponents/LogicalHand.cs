@@ -10,7 +10,7 @@ namespace BattleComponents
         public int MaxHandSize { get; private set; }
         
         public event Action<CardData> OnCardAdded;
-        public event Action<CardData> OnCardRemoved;
+        public event Action<Card> OnCardRemoved;
 
         public LogicalHand(int maxHandSize)
         {
@@ -27,9 +27,9 @@ namespace BattleComponents
             return true;
         }
 
-        public void RemoveCard(CardData card)
+        public void RemoveCard(Card card)
         {
-            if (CardsInHand.Remove(card))
+            if (CardsInHand.Remove(card.CardData))
             {
                 OnCardRemoved?.Invoke(card); 
             }
