@@ -15,12 +15,14 @@ namespace Core
         
         [Header("Ссылки на View")]
         [SerializeField] private UIHandManager uiHandManager;
+        [SerializeField] private UIDeckManager uiDeckManager;
         [SerializeField] private Transform playerField;
         [SerializeField] private Transform enemyContainer;
         
         private LogicalDeck _deck;
         private LogicalHand _hand;
         private LogicalDrop _drop;
+
 
         private void Start()
         {
@@ -29,7 +31,9 @@ namespace Core
             _drop = new LogicalDrop();
             
             uiHandManager.LinkToHandModel(_hand);
+            uiDeckManager.LinkToDeckModel(_deck);
             _deck.LinkToHandModel(_hand);
+            
             
             
             StartGame();

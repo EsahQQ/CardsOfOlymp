@@ -49,7 +49,8 @@ namespace BattleComponents
                 _logicalHand.TryAddCard(card);
                 _cardsInDeck.RemoveAt(0);
             }
-            
         }
+        
+        public List<CardData> GetCards() => _cardsInDeck;
     }
 }
