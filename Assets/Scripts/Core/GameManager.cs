@@ -14,6 +14,7 @@ namespace Core
         [SerializeField] private int cardsPerTurn = 1;
         [SerializeField] private int startMana = 6;
         [SerializeField] private int startTurns = 3;
+        [SerializeField] private int manaPerTurn = 1;
         
         [Header("Ссылки на View")]
         [SerializeField] private UIHandManager uiHandManager;
@@ -53,6 +54,7 @@ namespace Core
         
         public void EndPlayerTurn()
         {
+            _mana.AddMana(manaPerTurn);
             var cardsOnField = playerField.GetComponentsInChildren<Card>();
             var targetEnemy = enemyContainer.GetComponentInChildren<EnemyComponents.EnemyController>();
 
@@ -100,6 +102,8 @@ namespace Core
                 //переход в другую сцену    
                 return;
             }
+            
+            _turns.AddTurns(-1);
             
             _deck.TakeCards(cardsPerTurn);
         }

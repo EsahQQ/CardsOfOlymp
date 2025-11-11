@@ -14,7 +14,7 @@ namespace BattleComponents
             CurrentTurns = startTurns;
         }
 
-        public void AddMana(int turns)
+        public void AddTurns(int turns)
         {
             CurrentTurns += turns;
             OnTurnsChanged?.Invoke(this, EventArgs.Empty);
