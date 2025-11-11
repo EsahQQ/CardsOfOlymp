@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace EnemyComponents
 {
-    public class EnemyController : MonoBehaviour
+    public class EnemyController
     {
-        [SerializeField] private EnemyData enemyData;
+        public EnemyData EnemyData { get; private set; }
 
         private EnemyVisual _visual;
 
@@ -22,8 +22,8 @@ namespace EnemyComponents
         }
         private void Start()
         {
-            CurrentHealth = enemyData.healthPoints;
-            _visual.Init(enemyData);
+            CurrentHealth = EnemyData.healthPoints;
+            _visual.Init(EnemyData);
         }
 
         public void TakeDamage(int damage)

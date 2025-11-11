@@ -1,4 +1,4 @@
-using CardComponents.Abilities;
+using Abilities;
 using UnityEngine;
 
 namespace CardComponents
