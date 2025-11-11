@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
-using EnemyComponents;
+using Core;
 
-namespace CardComponents.Abilities
+namespace Abilities
 {
     public abstract class Ability : ScriptableObject
     {
         public string AbilityName;
         
-        public abstract void Execute(GameObject target); 
+        public abstract void Execute(BattleContext context); 
     }
 }
