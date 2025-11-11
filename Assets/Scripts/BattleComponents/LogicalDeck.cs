@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using CardComponents;
 using UnityEngine; 
+using System;
+using Random = UnityEngine.Random;
 
 namespace BattleComponents
 {
@@ -11,6 +13,8 @@ namespace BattleComponents
         private LogicalHand _logicalHand;    
         
         public int CardCount => _cardsInDeck.Count;
+
+        public event EventHandler OnDeckChange;
 
         public LogicalDeck(DeckData startingDeck)
         {
@@ -32,15 +36,6 @@ namespace BattleComponents
             _logicalHand = hand;
         }
 
-        public CardData DrawCard()
-        {
-            if (_cardsInDeck.Count == 0) return null;
-
-            var drawnCard = _cardsInDeck[0];
-            _cardsInDeck.RemoveAt(0);
-            return drawnCard;
-        }
-
         public void TakeCards(int count)
         {
             for (var i = 0; i < count; i++)
@@ -48,6 +43,7 @@ namespace BattleComponents
                 var card = _cardsInDeck[0];
                 _logicalHand.TryAddCard(card);
                 _cardsInDeck.RemoveAt(0);
+                OnDeckChange?.Invoke(this, EventArgs.Empty);
             }
         }
         

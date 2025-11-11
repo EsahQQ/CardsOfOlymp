@@ -12,52 +12,38 @@ namespace Core
         [SerializeField] private int maxHandSize = 5;
         [SerializeField] private int startingHandSize = 4;
         [SerializeField] private int cardsPerTurn = 1;
+        [SerializeField] private int startMana = 6;
         
         [Header("Ссылки на View")]
         [SerializeField] private UIHandManager uiHandManager;
         [SerializeField] private UIDeckManager uiDeckManager;
+        [SerializeField] private UIManaManager uiManaManager;
         [SerializeField] private Transform playerField;
         [SerializeField] private Transform enemyContainer;
         
         private LogicalDeck _deck;
         private LogicalHand _hand;
         private LogicalDrop _drop;
-
+        private LogicalMana _logicalMana;
 
         private void Start()
         {
             _deck = new LogicalDeck(startingDeckData);
             _hand = new LogicalHand(maxHandSize);
             _drop = new LogicalDrop();
+            _logicalMana = new LogicalMana(startMana);
             
             uiHandManager.LinkToHandModel(_hand);
             uiDeckManager.LinkToDeckModel(_deck);
+            uiManaManager.LinkToManaModel(_logicalMana);
             _deck.LinkToHandModel(_hand);
-            
-            
             
             StartGame();
         }
 
         private void StartGame()
         {
-            for (int i = 0; i < startingHandSize; i++)
-            {
-                AddCard();
-            }
-        }
-        
-        public void AddCard()
-        {
-            CardData cardToDraw = _deck.DrawCard();
-            if (cardToDraw != null)
-            {
-                _hand.TryAddCard(cardToDraw);
-            }
-            else
-            {
-                Debug.Log("Колода пуста!");
-            }
+            _deck.TakeCards(startingHandSize);
         }
         
         public void EndPlayerTurn()
@@ -66,6 +52,19 @@ namespace Core
             var targetEnemy = enemyContainer.GetComponentInChildren<EnemyComponents.EnemyController>();
 
             if (targetEnemy == null) return;
+
+            var neededMana = 0;
+            
+            foreach (var card in cardsOnField)
+            {
+                neededMana += card.CardData.manaCost;
+            }
+            
+            if (_logicalMana.CurrentMana < neededMana)
+            {
+                Debug.Log("Not enough mana!");
+                return;
+            }
             
             foreach (var card in cardsOnField)
             {
@@ -85,12 +84,19 @@ namespace Core
                 }
             }
             
-            _deck.TakeCards(cardsPerTurn);
-
             if (targetEnemy.CurrentHealth > 0)
             {
                 //Способность енеми
             }
+            else
+            {
+                Debug.Log("Enemy dead :(");
+                //анимация смерти
+                //переход в другую сцену    
+                return;
+            }
+            
+            _deck.TakeCards(cardsPerTurn);
         }
     }
 }
