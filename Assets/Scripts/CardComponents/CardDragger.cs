@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace CardComponents
 {
-    [RequireComponent(typeof(Card))] // Убедимся, что главный компонент Card всегда есть
+    [RequireComponent(typeof(Card))] 
     public class CardDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         [SerializeField] private GameObject placeholderPrefab;
@@ -11,8 +12,7 @@ namespace CardComponents
         private Canvas _rootCanvas;
         private CanvasGroup _canvasGroup;
         private GameObject _placeholder;
-        
-        // Ссылка на главный компонент, чтобы знать, куда возвращаться
+
         [HideInInspector] public Transform DefaultParent;
 
         private void Awake()
@@ -42,12 +42,12 @@ namespace CardComponents
 
         public void OnDrag(PointerEventData eventData)
         {
-            // Важно: RectTransform теперь нужно получать отдельно
             (transform as RectTransform).anchoredPosition += eventData.delta / _rootCanvas.scaleFactor;
             
             if (_placeholder.transform.parent != DefaultParent)
             {
                 _placeholder.transform.SetParent(DefaultParent);
+                StartCoroutine(AnimatePlaceholder(false));
             }
 
             int newSiblingIndex = DefaultParent.childCount;
@@ -75,6 +75,29 @@ namespace CardComponents
             _placeholder.transform.SetParent(_rootCanvas.transform); 
             
             _canvasGroup.blocksRaycasts = true;
+        }
+
+        private IEnumerator AnimatePlaceholder(bool into)
+        {
+            var rect = _placeholder.GetComponent<RectTransform>();
+            var target = 210;
+            if (into)
+                target = 0;
+            float elapsedTime = 0f;
+            while (elapsedTime < 0.35)
+            {
+                elapsedTime += Time.deltaTime;
+                float t = elapsedTime / 0.35f;
+                if (into)
+                    rect.sizeDelta = new Vector2(Mathf.SmoothStep(210, target, t), rect.sizeDelta.y);
+                else
+                    rect.sizeDelta = new Vector2(Mathf.SmoothStep(0, target, t), rect.sizeDelta.y);
+                yield return null;
+            }
+            if (into)
+                rect.sizeDelta = new Vector2(0, rect.sizeDelta.y);
+            else
+                rect.sizeDelta = new Vector2(210, rect.sizeDelta.y);
         }
     }
 }
