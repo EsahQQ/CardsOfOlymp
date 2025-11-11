@@ -13,29 +13,34 @@ namespace Core
         [SerializeField] private int startingHandSize = 4;
         [SerializeField] private int cardsPerTurn = 1;
         [SerializeField] private int startMana = 6;
+        [SerializeField] private int startTurns = 3;
         
         [Header("Ссылки на View")]
         [SerializeField] private UIHandManager uiHandManager;
         [SerializeField] private UIDeckManager uiDeckManager;
         [SerializeField] private UIManaManager uiManaManager;
+        [SerializeField] private UITurnsManager uiTurnsManager;
         [SerializeField] private Transform playerField;
         [SerializeField] private Transform enemyContainer;
         
         private LogicalDeck _deck;
         private LogicalHand _hand;
         private LogicalDrop _drop;
-        private LogicalMana _logicalMana;
+        private LogicalMana _mana;
+        private LogicalTurns _turns;
 
         private void Start()
         {
             _deck = new LogicalDeck(startingDeckData);
             _hand = new LogicalHand(maxHandSize);
             _drop = new LogicalDrop();
-            _logicalMana = new LogicalMana(startMana);
+            _mana = new LogicalMana(startMana);
+            _turns = new LogicalTurns(startTurns);
             
             uiHandManager.LinkToHandModel(_hand);
             uiDeckManager.LinkToDeckModel(_deck);
-            uiManaManager.LinkToManaModel(_logicalMana);
+            uiManaManager.LinkToManaModel(_mana);
+            uiTurnsManager.LinkToTurnsModel(_turns);
             _deck.LinkToHandModel(_hand);
             
             StartGame();
@@ -60,7 +65,7 @@ namespace Core
                 neededMana += card.CardData.manaCost;
             }
             
-            if (_logicalMana.CurrentMana < neededMana)
+            if (_mana.CurrentMana < neededMana)
             {
                 Debug.Log("Not enough mana!");
                 return;

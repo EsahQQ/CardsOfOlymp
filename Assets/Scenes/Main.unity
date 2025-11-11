@@ -505,6 +505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5a3db1f98e647e4ad5c83919828bf5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.UIDeckManager
+  cardsInDeckCountText: {fileID: 1998798703}
 --- !u!114 &511944690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2442,7 +2443,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
