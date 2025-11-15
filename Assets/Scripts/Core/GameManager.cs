@@ -21,6 +21,7 @@ namespace Core
         [SerializeField] private UIDeckManager uiDeckManager;
         [SerializeField] private UIManaManager uiManaManager;
         [SerializeField] private UITurnsManager uiTurnsManager;
+        [SerializeField] private UIDropManager uiDropManager;
         [SerializeField] private Transform playerField;
         [SerializeField] private Transform enemyContainer;
         
@@ -42,6 +43,7 @@ namespace Core
             uiDeckManager.LinkToDeckModel(_deck);
             uiManaManager.LinkToManaModel(_mana);
             uiTurnsManager.LinkToTurnsModel(_turns);
+            uiDropManager.LinkToDropModel(_drop);
             _deck.LinkToHandModel(_hand);
             
             StartGame();

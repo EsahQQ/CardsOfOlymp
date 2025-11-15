@@ -7,29 +7,26 @@ namespace BattleComponents
 {
     public class LogicalDrop
     {
-        public List<CardData> CardsInDrop { get; private set; }
+        private List<CardData> _cardsInDrop = new();
         
-        public event Action<CardData> OnCardAdded;
-        public event Action<Card> OnCardRemoved;
-
-        public LogicalDrop()
-        {
-            CardsInDrop = new List<CardData>();
-        }
+        public int CardCount => _cardsInDrop.Count;
+        public event EventHandler OnDropChange;
 
         public bool AddCard(CardData card)
         {
-            CardsInDrop.Add(card);
-            OnCardAdded?.Invoke(card);
+            _cardsInDrop.Add(card);
+            OnDropChange?.Invoke(this, EventArgs.Empty);
             return true;
         }
 
         public void RemoveCard(Card card)
         {
-            if (CardsInDrop.Remove(card.CardData))
+            if (_cardsInDrop.Remove(card.CardData))
             {
-                OnCardRemoved?.Invoke(card); 
+                OnDropChange?.Invoke(this, EventArgs.Empty); 
             }
         }
+        
+        public List<CardData> GetCards() => _cardsInDrop;
     }
 }
