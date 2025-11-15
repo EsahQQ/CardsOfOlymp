@@ -1,5 +1,6 @@
 ﻿using BattleComponents;
 using EnemyComponents;
+using UI;
 
 namespace Core
 {
@@ -11,6 +12,9 @@ namespace Core
         public LogicalMana PlayerMana { get; set; }
         public LogicalTurns PlayerTurns { get; set; }
         
-        public Enemy Enemy { get; set; }
+        public EnemyController Enemy { get; set; }
+        
+        
+        public UIHandManager HandManager { get; set; }
     }
 }

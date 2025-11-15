@@ -1,3 +1,4 @@
+using Abilities;
 using UnityEngine;
 
 namespace EnemyComponents
@@ -8,5 +9,6 @@ namespace EnemyComponents
         public string enemyName;
         public int healthPoints;
         public Sprite image;
+        public Ability ability;
     }
 }

@@ -56,7 +56,7 @@ namespace Core
         {
             _mana.AddMana(manaPerTurn);
             var cardsOnField = playerField.GetComponentsInChildren<Card>();
-            var enemy = enemyContainer.GetComponentInChildren<EnemyComponents.Enemy>();
+            var enemy = enemyContainer.GetComponentInChildren<EnemyComponents.EnemyController>();
 
             if (enemy == null) return;
 
@@ -84,7 +84,8 @@ namespace Core
                         PlayerDeck = _deck,
                         PlayerDrop = _drop,
                         PlayerMana = _mana,
-                        PlayerTurns = _turns
+                        PlayerTurns = _turns,
+                        HandManager = uiHandManager,
                     });
                 }
             }
@@ -93,6 +94,7 @@ namespace Core
             {
                 if (card.CardData != null)
                 {
+                    uiHandManager.MoveCardToHand(card); // !!!
                     _hand.RemoveCard(card);
                     _drop.AddCard(card.CardData);
                 }
@@ -100,14 +102,15 @@ namespace Core
             
             if (enemy.CurrentHealth > 0)
             {
-                enemy.EnemyData.ability.Execute(new BattleContext
+                enemy.GetData().ability.Execute(new BattleContext
                 {
                     Enemy = enemy,
                     PlayerHand = _hand,
                     PlayerDeck = _deck,
                     PlayerDrop = _drop,
                     PlayerMana = _mana,
-                    PlayerTurns = _turns
+                    PlayerTurns = _turns,
+                    HandManager = uiHandManager
                 });
             }
             else
@@ -121,6 +124,7 @@ namespace Core
             _turns.AddTurns(-1);
             
             _deck.TakeCards(cardsPerTurn);
+            
         }
     }
 }

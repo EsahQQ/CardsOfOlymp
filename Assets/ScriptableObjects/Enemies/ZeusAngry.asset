@@ -15,3 +15,4 @@ MonoBehaviour:
   enemyName: Zeus
   healthPoints: 100
   image: {fileID: 21300000, guid: b61f6d92691ee98409f32144620f3669, type: 3}
+  ability: {fileID: 11400000, guid: e17275dd06eed8e42a1ee54e3a25e4a0, type: 2}

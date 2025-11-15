@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: DamageAbility
   m_EditorClassIdentifier: Assembly-CSharp::Card.Abilities.DamageAbility
   AbilityName: 
-  Damage: 25
+  damage: 25

@@ -1,5 +1,7 @@
-﻿using Core;
+﻿using CardComponents;
+using Core;
 using EnemyComponents;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Abilities.EnemyAbilities
@@ -9,9 +11,13 @@ namespace Abilities.EnemyAbilities
     {
         public override void Execute(BattleContext context)
         {
-            if (context.PlayerHand != null)
+            var hand = context.HandManager;
+            var logicalHand = context.PlayerHand;
+            if (hand != null)
             {
-                //context.PlayerHand.RemoveRandomCard(); 
+                var rnd = Random.Range(0, hand.GetCardsInHand().Count);
+                Debug.Log(rnd);
+                logicalHand.RemoveCard(hand.GetCardsInHand()[rnd]);
             }
         }
     }

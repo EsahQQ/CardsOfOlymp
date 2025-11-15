@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CardComponents;
+using UnityEngine;
 
 namespace BattleComponents
 {
@@ -23,6 +24,7 @@ namespace BattleComponents
             if (CardsInHand.Count >= MaxHandSize) return false; 
 
             CardsInHand.Add(card);
+            Debug.Log($"{card.cardName} added to logical hand");
             OnCardAdded?.Invoke(card);
             return true;
         }
@@ -31,6 +33,7 @@ namespace BattleComponents
         {
             if (CardsInHand.Remove(card.CardData))
             {
+                Debug.Log($"{card.CardData.cardName} removed from logical hand");
                 OnCardRemoved?.Invoke(card); 
             }
         }
