@@ -595,6 +595,7 @@ GameObject:
   - component: {fileID: 511944690}
   - component: {fileID: 511944691}
   - component: {fileID: 511944692}
+  - component: {fileID: 511944693}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -683,6 +684,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.UIDropManager
   cardsInDropCountText: {fileID: 227874285}
+--- !u!114 &511944693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511944686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c7e194e33b14e2bbbf3a04e4b219b72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CardComponents.Visual.CardAnimator
+  dropPileTarget: {fileID: 899633087}
+  moveDuration: 0.7
+  arcHeight: 2
+  rotationAngle: 30
+  moveEase: 7
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1701,7 +1719,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 126.630005, y: -211.15}
+  m_AnchoredPosition: {x: 126.63013, y: -211.15002}
   m_SizeDelta: {x: 183.26001, y: 158.16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1276492919

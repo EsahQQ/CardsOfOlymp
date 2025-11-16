@@ -1,5 +1,6 @@
 ﻿using System;
 using BattleComponents;
+using CardComponents.Visual;
 using TMPro;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ namespace UI
             _logicalDrop =  logicalDrop;
             ChangeCardsInDropCountText();
             _logicalDrop.OnDropChange += OnDropChange;
+            CardAnimator.Instance.Init(_logicalDrop);
         }
 
         private void OnDropChange(object sender, EventArgs e)

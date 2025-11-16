@@ -5,19 +5,19 @@ namespace CardComponents
     public class Card : MonoBehaviour
     {
         public CardData CardData { get; private set; }
-        public CardVisual Visual { get; private set; }
-        public CardDragger Dragger { get; private set; }
+        private CardVisual _visual;
+        private CardDragger _dragger;
         
         private void Awake()
         {
-            Visual = GetComponent<CardVisual>();
-            Dragger = GetComponent<CardDragger>();
+            _visual = GetComponent<CardVisual>();
+            _dragger = GetComponent<CardDragger>();
         }
 
         public void Init(CardData data)
         {
             CardData = data;
-            Visual.Init(data);
+            _visual.Init(data);
         }
     }
 }

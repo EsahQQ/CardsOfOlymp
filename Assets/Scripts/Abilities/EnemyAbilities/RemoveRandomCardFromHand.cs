@@ -18,9 +18,8 @@ namespace Abilities.EnemyAbilities
             {
                 var rnd = Random.Range(0, hand.GetCardsInHand().Count);
                 var card = hand.GetCardsInHand()[rnd];
-                Debug.Log(rnd);
                 logicalHand.RemoveCard(card);
-                logicalDrop.AddCard(card.CardData);
+                logicalDrop.AddCard(card);
             }
         }
     }

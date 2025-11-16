@@ -98,7 +98,7 @@ namespace Core
                 {
                     uiHandManager.MoveCardToHand(card); // !!!
                     _hand.RemoveCard(card);
-                    _drop.AddCard(card.CardData);
+                    _drop.AddCard(card);
                 }
             }
             

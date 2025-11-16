@@ -11,11 +11,13 @@ namespace BattleComponents
         
         public int CardCount => _cardsInDrop.Count;
         public event EventHandler OnDropChange;
+        public event EventHandler<Card> OnCardAddToDrop;
 
-        public bool AddCard(CardData card)
+        public bool AddCard(Card card)
         {
-            _cardsInDrop.Add(card);
+            _cardsInDrop.Add(card.CardData);
             OnDropChange?.Invoke(this, EventArgs.Empty);
+            OnCardAddToDrop?.Invoke(this, card);
             return true;
         }
 
