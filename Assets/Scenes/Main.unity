@@ -696,11 +696,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c7e194e33b14e2bbbf3a04e4b219b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardComponents.Visual.CardAnimator
-  dropPileTarget: {fileID: 899633087}
+  dropPileTarget: {fileID: 1827705284}
   moveDuration: 0.7
   arcHeight: 2
+  flyingInDropCards: {fileID: 1887773098}
   rotationAngle: 30
   moveEase: 7
+  deckTarget: {fileID: 655137194}
+  drawMoveDuration: 0.6
+  drawArcHeight: 1.5
+  drawMoveEase: 6
+  flyingFromDeckCards: {fileID: 1366592366}
+  placeholderPrefab: {fileID: 1012163394647912460, guid: 4fd1c4036f418b740bb4835220e5b6a6, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1258,6 +1265,7 @@ RectTransform:
   m_Children:
   - {fileID: 655137194}
   - {fileID: 1998798702}
+  - {fileID: 1366592366}
   m_Father: {fileID: 1981515638}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
@@ -1466,6 +1474,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1887773098}
   - {fileID: 1827705284}
   - {fileID: 227874284}
   m_Father: {fileID: 1981515638}
@@ -1949,6 +1958,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1713f3d396e409faa6b971f25375a32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Hand
+--- !u!1 &1366592365
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1366592366}
+  m_Layer: 5
+  m_Name: FlyingFromDeckCards
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1366592366
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1366592365}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.9997476, y: 0.9997476, z: 0.9997476}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 713353699}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -789.99994, y: 379.751}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1394801812
 GameObject:
   m_ObjectHideFlags: 0
@@ -2553,6 +2597,41 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &1887773097
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1887773098}
+  m_Layer: 5
+  m_Name: FlyingInDropCards
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1887773098
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887773097}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 899633087}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 790, y: 379.75104}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1898429810
 GameObject:
   m_ObjectHideFlags: 0

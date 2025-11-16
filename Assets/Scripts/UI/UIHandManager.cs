@@ -2,6 +2,7 @@
 using System.Linq;
 using BattleComponents;
 using CardComponents;
+using CardComponents.Visual;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -35,6 +36,8 @@ namespace UI
         {
             var cardObject = Instantiate(cardPrefab, handContainer);
             cardObject.GetComponent<Card>().Init(cardData);
+            cardObject.SetActive(false);
+            CardAnimator.Instance.AnimateCardToHand(cardObject, handContainer);
         }
         
         private void OnCardRemovedFromHand(Card card)
