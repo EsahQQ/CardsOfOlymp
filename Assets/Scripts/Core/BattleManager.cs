@@ -5,10 +5,9 @@ using CardComponents;
 
 namespace Core
 {
-    public class GameManager : MonoBehaviour
+    public class BattleManager : MonoBehaviour
     {
         [Header("Настройки Боя")]
-        [SerializeField] private DeckData startingDeckData;
         [SerializeField] private int maxHandSize = 5;
         [SerializeField] private int startingHandSize = 4;
         [SerializeField] private int cardsPerTurn = 1;
@@ -33,7 +32,11 @@ namespace Core
 
         private void Start()
         {
-            _deck = new LogicalDeck(startingDeckData);
+            DeckData currentRunDeck = ScriptableObject.CreateInstance<DeckData>();
+            currentRunDeck.cards = GameProgressionManager.Instance.PlayerDeck;
+        
+            _deck = new LogicalDeck(currentRunDeck);
+            
             _hand = new LogicalHand(maxHandSize);
             _drop = new LogicalDrop();
             _mana = new LogicalMana(startMana);
@@ -117,6 +120,7 @@ namespace Core
             }
             else
             {
+                OnBattleOver(true);
                 Debug.Log("Enemy dead :(");
                 //анимация смерти
                 //переход в другую сцену    
@@ -124,9 +128,27 @@ namespace Core
             }
             
             _turns.AddTurns(-1);
+
+            if (_turns.CurrentTurns <= 0)
+            {
+                OnBattleOver(false);
+                Debug.Log("You Lose! Turns left");
+            }
             
             _deck.TakeCards(cardsPerTurn);
             
+        }
+        
+        private void OnBattleOver(bool playerWon)
+        {
+            if (playerWon)
+            {
+                GameProgressionManager.Instance.BattleWon();
+            }
+            else
+            {
+                GameProgressionManager.Instance.BattleLost();
+            }
         }
     }
 }

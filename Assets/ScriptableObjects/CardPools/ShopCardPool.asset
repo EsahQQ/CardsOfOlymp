@@ -10,21 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e44b17faa52444b597b3c9aabdbde5bb, type: 3}
-  m_Name: InitialCardPool
+  m_Name: ShopCardPool
   m_EditorClassIdentifier: Assembly-CSharp::CardPool
   allCards:
+  - {fileID: 11400000, guid: 60df30462c6b96440a231d92b6203ff3, type: 2}
+  - {fileID: 11400000, guid: dbb0774ea23f7f547b1dfc4b68eca34f, type: 2}
   - {fileID: 11400000, guid: f1a5451d1b1ca7e4db55a88bcab0a60f, type: 2}
+  - {fileID: 11400000, guid: dbb0774ea23f7f547b1dfc4b68eca34f, type: 2}
+  - {fileID: 11400000, guid: dbb0774ea23f7f547b1dfc4b68eca34f, type: 2}
+  - {fileID: 11400000, guid: 93d23b8b9e70b7147b241fd2c8b96fe8, type: 2}
+  - {fileID: 11400000, guid: dbb0774ea23f7f547b1dfc4b68eca34f, type: 2}
+  - {fileID: 11400000, guid: 60df30462c6b96440a231d92b6203ff3, type: 2}
+  - {fileID: 11400000, guid: f1a5451d1b1ca7e4db55a88bcab0a60f, type: 2}
+  - {fileID: 11400000, guid: dbb0774ea23f7f547b1dfc4b68eca34f, type: 2}
+  - {fileID: 11400000, guid: 60df30462c6b96440a231d92b6203ff3, type: 2}
   - {fileID: 11400000, guid: 60df30462c6b96440a231d92b6203ff3, type: 2}
   - {fileID: 11400000, guid: 93d23b8b9e70b7147b241fd2c8b96fe8, type: 2}
   - {fileID: 11400000, guid: 60df30462c6b96440a231d92b6203ff3, type: 2}
-  - {fileID: 11400000, guid: dbb0774ea23f7f547b1dfc4b68eca34f, type: 2}
-  - {fileID: 11400000, guid: 60df30462c6b96440a231d92b6203ff3, type: 2}
   - {fileID: 11400000, guid: 93d23b8b9e70b7147b241fd2c8b96fe8, type: 2}
   - {fileID: 11400000, guid: dbb0774ea23f7f547b1dfc4b68eca34f, type: 2}
-  - {fileID: 11400000, guid: 60df30462c6b96440a231d92b6203ff3, type: 2}
-  - {fileID: 11400000, guid: f1a5451d1b1ca7e4db55a88bcab0a60f, type: 2}
-  - {fileID: 11400000, guid: dbb0774ea23f7f547b1dfc4b68eca34f, type: 2}
-  - {fileID: 11400000, guid: f1a5451d1b1ca7e4db55a88bcab0a60f, type: 2}
-  - {fileID: 11400000, guid: 60df30462c6b96440a231d92b6203ff3, type: 2}
-  - {fileID: 11400000, guid: 93d23b8b9e70b7147b241fd2c8b96fe8, type: 2}
   - {fileID: 11400000, guid: 93d23b8b9e70b7147b241fd2c8b96fe8, type: 2}

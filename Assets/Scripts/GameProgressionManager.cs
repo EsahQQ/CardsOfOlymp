@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class GameProgressionManager : MonoBehaviour
 {
+    [Header("Настройки игры")]
+    [SerializeField] private CardPool initialCardPool;
+    [SerializeField] private int startingDeckSize = 8;
+    
     public static GameProgressionManager Instance { get; private set; }
     
     public List<CardData> PlayerDeck { get; private set; }
@@ -39,21 +43,35 @@ public class GameProgressionManager : MonoBehaviour
     {
         PlayerDeck.Clear();
         
-        Debug.Log("Генерируем стартовую колоду..."); 
+        List<CardData> availableCards = new List<CardData>(initialCardPool.allCards);
+    
+        for (int i = 0; i < startingDeckSize; i++)
+        {
+            if (availableCards.Count == 0) break; 
+        
+            int randomIndex = Random.Range(0, availableCards.Count);
+            CardData randomCard = availableCards[randomIndex];
+        
+            PlayerDeck.Add(randomCard);
+            
+            availableCards.RemoveAt(randomIndex);
+        }
+    
+        Debug.Log($"Сгенерирована колода из {PlayerDeck.Count} карт.");
     }
 
     public void StartNextBattle()
     {
-        Debug.Log($"Начинаем бой на этаже {CurrentLevel}");
+        Debug.Log($"Начинаем бой на уровне {CurrentLevel}");
 
-        SceneManager.LoadScene("BattleScene"); 
+        SceneManager.LoadScene("Main"); 
     }
 
     public void BattleWon()
     {
         Debug.Log("Победа в бою!");
         CurrentLevel++;
-        PlayerGold += 100; // Награда за победу
+        PlayerGold += 100; 
         
         SceneManager.LoadScene("ShopScene");
     }
@@ -62,6 +80,6 @@ public class GameProgressionManager : MonoBehaviour
     {
         Debug.Log("Поражение!");
 
-        SceneManager.LoadScene("MainMenuScene");
+        SceneManager.LoadScene("MainMenu");
     }
 }
