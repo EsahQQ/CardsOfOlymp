@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CardComponents;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class GameProgressionManager : MonoBehaviour
 {
@@ -38,6 +40,11 @@ public class GameProgressionManager : MonoBehaviour
         
         StartNextBattle();
     }
+
+    /*private void OnDestroy()
+    {
+        Instance = null;
+    }*/
 
     private void GenerateStartingDeck()
     {
@@ -81,5 +88,10 @@ public class GameProgressionManager : MonoBehaviour
         Debug.Log("Поражение!");
 
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void ChangeGold(int amount)
+    {
+        PlayerGold += amount;
     }
 }

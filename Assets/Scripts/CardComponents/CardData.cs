@@ -11,5 +11,6 @@ namespace CardComponents
         public Sprite image;
         public int manaCost;
         public Ability ability;
+        public int price;
     }
 }

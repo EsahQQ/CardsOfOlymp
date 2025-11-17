@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 1966541902569765534}
   - component: {fileID: 265081126626567144}
   - component: {fileID: 8131720281090515386}
-  - component: {fileID: 8159573770769544800}
+  - component: {fileID: 2657579001303408338}
   m_Layer: 5
   m_Name: Card
   m_TagString: Untagged
@@ -537,7 +537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d90934cf94c6476eb31856e2d2ea4203, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardComponents.Card
---- !u!114 &8159573770769544800
+--- !u!114 &2657579001303408338
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -550,7 +550,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardComponents.CardDragger
   placeholderPrefab: {fileID: 1012163394647912460, guid: 4fd1c4036f418b740bb4835220e5b6a6, type: 3}
-  layoutAnimationDuration: 1
   DefaultParent: {fileID: 0}
 --- !u!1 &6877306208320960563
 GameObject:
