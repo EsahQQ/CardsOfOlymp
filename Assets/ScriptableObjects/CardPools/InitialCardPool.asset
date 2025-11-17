@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e5d9b257d8d479887aeb5d59be24cd8, type: 3}
-  m_Name: DamageAbility
-  m_EditorClassIdentifier: Assembly-CSharp::Card.Abilities.DamageAbility
-  AbilityDescription: Deals 25 points of damage
-  damage: 25
+  m_Script: {fileID: 11500000, guid: e44b17faa52444b597b3c9aabdbde5bb, type: 3}
+  m_Name: InitialCardPool
+  m_EditorClassIdentifier: Assembly-CSharp::CardPool
+  allCards: []

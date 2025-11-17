@@ -15,7 +15,7 @@ namespace CardComponents
         public void Init(CardData cardData)
         {
             cardName.text = cardData.cardName;
-            description.text = cardData.description;
+            description.text = cardData.ability.AbilityDescription;
             manaCost.text = cardData.manaCost.ToString();
             image.sprite = cardData.image;
         }
