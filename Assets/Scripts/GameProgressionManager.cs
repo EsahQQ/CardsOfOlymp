@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using CardComponents;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -119,6 +120,9 @@ public class GameProgressionManager : MonoBehaviour
     {
         if (scene.name == "MainMenu")
             GameObject.Find("StartGameButton").GetComponent<Button>().onClick.AddListener(StartNewRun);
+        
+        if (scene.name == "Main")
+            GameObject.Find("Lvl").GetComponent<TextMeshProUGUI>().text = $"LVL: {CurrentLevel}";
         
         var background = GameObject.Find("Background");
 

@@ -104,6 +104,7 @@ namespace Core
             {
                 if (card.CardData != null && card.CardData.ability != null)
                 {
+                    yield return new WaitUntil(() => !CardAnimator.Instance.IsAnimating);
                     yield return StartCoroutine(card.CardData.ability.Execute(new BattleContext
                     {
                         Enemy = enemy,
