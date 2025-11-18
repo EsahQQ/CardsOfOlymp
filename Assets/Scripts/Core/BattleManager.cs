@@ -4,6 +4,8 @@ using UI;
 using UnityEngine;
 using CardComponents;
 using CardComponents.Visual;
+using TMPro;
+using UnityEngine.UI;
 
 namespace Core
 {
@@ -25,6 +27,11 @@ namespace Core
         [SerializeField] private UIDropManager uiDropManager;
         [SerializeField] private Transform playerField;
         [SerializeField] private Transform enemyContainer;
+
+        [SerializeField] private GameObject wonBattlePanelPrefab;
+        [SerializeField] private GameObject lostBattlePanelPrefab;
+        [SerializeField] private Transform background;
+        [SerializeField] private GameObject dark;
         
         private LogicalDeck _deck;
         private LogicalHand _hand;
@@ -73,7 +80,7 @@ namespace Core
             var cardsOnField = playerField.GetComponentsInChildren<Card>();
             var enemy = enemyContainer.GetComponentInChildren<EnemyComponents.EnemyController>();
 
-            if (enemy == null)
+            if (enemy == null || cardsOnField.Length <= 0)
             {
                 isTurnProcessing = false;
                 yield break; // Выходим из корутины
@@ -169,13 +176,26 @@ namespace Core
         
         private void OnBattleOver(bool playerWon)
         {
+            dark.GetComponent<Image>().enabled = true;
+            dark.SetActive(true);
             if (playerWon)
             {
-                GameProgressionManager.Instance.BattleWon();
+                var panel = Instantiate(wonBattlePanelPrefab, background.position, Quaternion.identity, background);
+                var btn = panel.GetComponentInChildren<Button>(true);
+                btn.onClick.RemoveAllListeners();
+                btn.onClick.AddListener(() => GameProgressionManager.Instance.BattleWon());
+                
+                var goldText = GameObject.Find("EarnedGold").GetComponent<TextMeshProUGUI>();
+                goldText.text = GameProgressionManager.Instance.GoldPerLevel.ToString();
+                panel.SetActive(true);
             }
             else
             {
-                GameProgressionManager.Instance.BattleLost();
+                var panel = Instantiate(lostBattlePanelPrefab, background.position, Quaternion.identity, background);
+                var btn = panel.GetComponentInChildren<Button>(true);
+                btn.onClick.RemoveAllListeners();
+                btn.onClick.AddListener(() => GameProgressionManager.Instance.BattleLost());
+                panel.SetActive(true);
             }
         }
     }

@@ -13,12 +13,15 @@ public class GameProgressionManager : MonoBehaviour
     [SerializeField] private CardPool initialCardPool;
     [SerializeField] private int startingDeckSize = 8;
     [SerializeField] private float sceneTransitionDuration = 0.8f;
+    [SerializeField] private int goldPerLevel = 100;
     
     public static GameProgressionManager Instance { get; private set; }
     
     public List<CardData> PlayerDeck { get; private set; }
     public int CurrentLevel { get; private set; }
     public int PlayerGold { get; private set; }
+    
+    public int GoldPerLevel => goldPerLevel;
 
     private void Awake()
     {
@@ -84,7 +87,7 @@ public class GameProgressionManager : MonoBehaviour
     {
         Debug.Log("Победа в бою!");
         CurrentLevel++;
-        PlayerGold += 100; 
+        PlayerGold += goldPerLevel; 
         
         LoadScene("ShopScene");
     }
