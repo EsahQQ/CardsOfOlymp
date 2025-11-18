@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: RemoveRandomCardFromHandToDropAbility
   m_EditorClassIdentifier: Assembly-CSharp::Abilities.EnemyAbilities.RemoveRandomCardFromHandToDropAbility
   AbilityDescription: After a player's turn, discards one card from his hand
+  vfxPrefab: {fileID: 1362714594985076409, guid: ce8bec1f96ec8814daa72cdaaf640e9f, type: 3}

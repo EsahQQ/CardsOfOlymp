@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Card.Abilities.DamageAbility
   AbilityDescription: Deals 25 points of damage
   damage: 25
+  vfxPrefab: {fileID: 5332538794266968226, guid: 3654d53f875630c479116fd74de5413b, type: 3}

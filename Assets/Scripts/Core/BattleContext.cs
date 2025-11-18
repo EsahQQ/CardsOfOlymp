@@ -16,5 +16,7 @@ namespace Core
         
         
         public UIHandManager HandManager { get; set; }
+        public UIDropManager DropManager { get; set; }
+        public UIDeckManager DeckManager { get; set; }
     }
 }

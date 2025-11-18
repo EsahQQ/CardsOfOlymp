@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using Core;
 
 namespace Abilities
@@ -6,6 +7,6 @@ namespace Abilities
     public abstract class Ability : ScriptableObject
     {
         public string AbilityDescription;
-        public abstract void Execute(BattleContext context); 
+        public abstract IEnumerator Execute(BattleContext context); 
     }
 }

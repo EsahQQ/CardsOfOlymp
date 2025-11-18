@@ -9,8 +9,12 @@ namespace UI
     public class UIDropManager : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI cardsInDropCountText;
+
+        [SerializeField] private GameObject dropContainer;
         
         private LogicalDrop _logicalDrop;
+        
+        public GameObject DropContainer => dropContainer;
         
         public void LinkToDropModel(LogicalDrop logicalDrop)
         {

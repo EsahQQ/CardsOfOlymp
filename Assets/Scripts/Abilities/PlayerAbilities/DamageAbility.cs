@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using System.Collections;
+using Core;
 using EnemyComponents;
 using UnityEngine;
 
@@ -8,10 +9,15 @@ namespace Abilities.PlayerAbilities
     public class DamageAbility : Ability
     {
         public int damage;
-        public override void Execute(BattleContext context)
+        public GameObject vfxPrefab;
+        public override IEnumerator Execute(BattleContext context)
         {
+            var enemyHitTake = context.Enemy.EnemyHitTake;
+            
             if (context.Enemy != null)
             {
+                yield return AbilityAnimator.Instance.PlayVFX(enemyHitTake, vfxPrefab);
+                
                 context.Enemy.TakeDamage(damage);
             }
         }

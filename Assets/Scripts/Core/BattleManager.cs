@@ -1,7 +1,9 @@
+using System.Collections;
 using BattleComponents;
 using UI;
 using UnityEngine;
 using CardComponents;
+using CardComponents.Visual;
 
 namespace Core
 {
@@ -29,6 +31,8 @@ namespace Core
         private LogicalDrop _drop;
         private LogicalMana _mana;
         private LogicalTurns _turns;
+        
+        private bool isTurnProcessing = false;
 
         private void Start()
         {
@@ -59,11 +63,21 @@ namespace Core
         
         public void EndPlayerTurn()
         {
-            _mana.AddMana(manaPerTurn);
+            if (isTurnProcessing) return; // Если ход уже обрабатывается, ничего не делаем
+            
+            StartCoroutine(EndPlayerTurnSequence());
+        }
+
+        private IEnumerator EndPlayerTurnSequence()
+        {
             var cardsOnField = playerField.GetComponentsInChildren<Card>();
             var enemy = enemyContainer.GetComponentInChildren<EnemyComponents.EnemyController>();
 
-            if (enemy == null) return;
+            if (enemy == null)
+            {
+                isTurnProcessing = false;
+                yield break; // Выходим из корутины
+            }
 
             var neededMana = 0;
             
@@ -75,14 +89,15 @@ namespace Core
             if (_mana.CurrentMana < neededMana)
             {
                 Debug.Log("Not enough mana!");
-                return;
+                isTurnProcessing = false;
+                yield break;
             }
             
             foreach (var card in cardsOnField)
             {
                 if (card.CardData != null && card.CardData.ability != null)
                 {
-                    card.CardData.ability.Execute(new BattleContext
+                    yield return StartCoroutine(card.CardData.ability.Execute(new BattleContext
                     {
                         Enemy = enemy,
                         PlayerHand = _hand,
@@ -91,13 +106,17 @@ namespace Core
                         PlayerMana = _mana,
                         PlayerTurns = _turns,
                         HandManager = uiHandManager,
-                    });
+                        DeckManager = uiDeckManager,
+                        DropManager = uiDropManager,
+                    }));
                 }
             }
             
             if (enemy.CurrentHealth > 0)
             {
-                enemy.GetData().ability.Execute(new BattleContext
+                yield return new WaitForSeconds(0.5f);
+                
+                yield return StartCoroutine(enemy.GetData().ability.Execute(new BattleContext
                 {
                     Enemy = enemy,
                     PlayerHand = _hand,
@@ -105,39 +124,48 @@ namespace Core
                     PlayerDrop = _drop,
                     PlayerMana = _mana,
                     PlayerTurns = _turns,
-                    HandManager = uiHandManager
-                });
+                    HandManager = uiHandManager,
+                    DeckManager = uiDeckManager,
+                    DropManager = uiDropManager,
+                }));
             }
             else
             {
-                OnBattleOver(true);
                 Debug.Log("Enemy dead :(");
-                //анимация смерти
-                //переход в другую сцену    
-                return;
+                OnBattleOver(true);
+                isTurnProcessing = false;
+                yield break;
             }
             
             foreach (var card in cardsOnField)
             {
                 if (card.CardData != null)
                 {
-                    //uiHandManager.MoveCardToHand(card); // !!!
                     _hand.RemoveCard(card);
-                    _drop.AddCard(card);
+                    _drop.AddCard(card);    
                 }
             }
+            
+            yield return new WaitUntil(() => !CardAnimator.Instance.IsAnimating);
             
             _turns.AddTurns(-1);
 
             if (_turns.CurrentTurns <= 0)
             {
-                OnBattleOver(false);
                 Debug.Log("You Lose! Turns left");
+                OnBattleOver(false);
+                isTurnProcessing = false;
+                yield break;
             }
             
             _deck.TakeCards(cardsPerTurn);
+            _mana.AddMana(manaPerTurn);
             
+            yield return new WaitUntil(() => !CardAnimator.Instance.IsAnimating);
+            
+            isTurnProcessing = false;
         }
+
         
         private void OnBattleOver(bool playerWon)
         {

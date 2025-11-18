@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Abilities.PlayerAbilities.TakeRandomCardFromDropAbility
   AbilityDescription: Moves one random card from the drop to hand
   cardCounts: 1
+  vfxPrefab: {fileID: 3357587844981223788, guid: 64540e7e7ca6d2a4680091a8f8ec50e7, type: 3}

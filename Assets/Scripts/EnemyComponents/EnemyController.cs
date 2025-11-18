@@ -15,10 +15,13 @@ namespace EnemyComponents
         
         public int CurrentHealth { get; private set; }
         
+        public Transform EnemyHitTake {get; private set;}
+        
         private void Awake()
         {
             _visual = GetComponent<EnemyVisual>();
             Instance = this;
+            EnemyHitTake = GameObject.Find("EnemyHitTake").transform;
         }
         private void Start()
         {
