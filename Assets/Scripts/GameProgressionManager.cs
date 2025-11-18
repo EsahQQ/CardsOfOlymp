@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using CardComponents;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
@@ -10,6 +12,7 @@ public class GameProgressionManager : MonoBehaviour
     [Header("Настройки игры")]
     [SerializeField] private CardPool initialCardPool;
     [SerializeField] private int startingDeckSize = 8;
+    [SerializeField] private float sceneTransitionDuration = 0.8f;
     
     public static GameProgressionManager Instance { get; private set; }
     
@@ -28,6 +31,14 @@ public class GameProgressionManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         
         PlayerDeck = new List<CardData>();
+        
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        //Instance = null;
     }
 
     public void StartNewRun()
@@ -40,11 +51,6 @@ public class GameProgressionManager : MonoBehaviour
         
         StartNextBattle();
     }
-
-    /*private void OnDestroy()
-    {
-        Instance = null;
-    }*/
 
     private void GenerateStartingDeck()
     {
@@ -71,7 +77,7 @@ public class GameProgressionManager : MonoBehaviour
     {
         Debug.Log($"Начинаем бой на уровне {CurrentLevel}");
 
-        SceneManager.LoadScene("Main"); 
+        LoadScene("Main"); 
     }
 
     public void BattleWon()
@@ -80,18 +86,41 @@ public class GameProgressionManager : MonoBehaviour
         CurrentLevel++;
         PlayerGold += 100; 
         
-        SceneManager.LoadScene("ShopScene");
+        LoadScene("ShopScene");
     }
 
     public void BattleLost()
     {
         Debug.Log("Поражение!");
 
-        SceneManager.LoadScene("MainMenu");
+        LoadScene("MainMenu");
     }
 
     public void ChangeGold(int amount)
     {
         PlayerGold += amount;
+    }
+
+    private void LoadScene(string sceneName)
+    {
+        var background = GameObject.Find("Background");
+        background.transform.DOMove(new Vector3(-1920+960, background.transform.position.y, background.transform.position.z), sceneTransitionDuration).SetEase(Ease.OutQuad);
+        
+        DOVirtual.DelayedCall(sceneTransitionDuration, () => {
+            SceneManager.LoadScene(sceneName);
+        });
+    }
+    
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        var background = GameObject.Find("Background");
+
+        background.transform.position = new Vector3(
+            1920+960,
+            background.transform.position.y, 
+            background.transform.position.z
+        );
+        
+        background.transform.DOMove(new Vector3(960,  background.transform.position.y, background.transform.position.z), sceneTransitionDuration).SetEase(Ease.OutQuad);
     }
 }
