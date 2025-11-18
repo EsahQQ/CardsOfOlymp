@@ -8,13 +8,13 @@ namespace Abilities.EnemyAbilities
     {
         public override void Execute(BattleContext context)
         {
-            var hand = context.HandManager;
+            var handManager = context.HandManager;
             var logicalHand = context.PlayerHand;
             var logicalDrop = context.PlayerDrop;
-            if (hand != null)
+            if (handManager.GetCardsInHand().Count > 0)
             {
-                var rnd = Random.Range(0, hand.GetCardsInHand().Count);
-                var card = hand.GetCardsInHand()[rnd];
+                var rnd = Random.Range(0, handManager.GetCardsInHand().Count);
+                var card = handManager.GetCardsInHand()[rnd];
                 logicalHand.RemoveCard(card);
                 logicalDrop.AddCard(card);
             }
