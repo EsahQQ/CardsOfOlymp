@@ -32,7 +32,7 @@ public class ShopCardUI : MonoBehaviour
     public void SetAsPurchased()
     {
         buyButton.interactable = false;
-        priceText.text = "Куплено";
+        priceText.text = "Buyed";
     }
 
     private void OnDestroy()

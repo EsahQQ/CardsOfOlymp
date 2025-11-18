@@ -95,16 +95,6 @@ namespace Core
                 }
             }
             
-            foreach (var card in cardsOnField)
-            {
-                if (card.CardData != null)
-                {
-                    uiHandManager.MoveCardToHand(card); // !!!
-                    _hand.RemoveCard(card);
-                    _drop.AddCard(card);
-                }
-            }
-            
             if (enemy.CurrentHealth > 0)
             {
                 enemy.GetData().ability.Execute(new BattleContext
@@ -125,6 +115,16 @@ namespace Core
                 //анимация смерти
                 //переход в другую сцену    
                 return;
+            }
+            
+            foreach (var card in cardsOnField)
+            {
+                if (card.CardData != null)
+                {
+                    //uiHandManager.MoveCardToHand(card); // !!!
+                    _hand.RemoveCard(card);
+                    _drop.AddCard(card);
+                }
             }
             
             _turns.AddTurns(-1);

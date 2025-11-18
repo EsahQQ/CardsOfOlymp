@@ -37,7 +37,9 @@ namespace UI
             var cardObject = Instantiate(cardPrefab, handContainer);
             cardObject.GetComponent<Card>().Init(cardData);
             cardObject.SetActive(false);
-            CardAnimator.Instance.AnimateCardToHand(cardObject, handContainer);
+            CardAnimator.Instance.QueueAnimation(
+                CardAnimator.Instance.AnimateCardToHand(cardObject, handContainer)
+            );
         }
         
         private void OnCardRemovedFromHand(Card card)

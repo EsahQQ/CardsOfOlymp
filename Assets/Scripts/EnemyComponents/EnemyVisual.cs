@@ -10,6 +10,7 @@ namespace EnemyComponents
         [SerializeField] private TextMeshProUGUI enemyName;
         [SerializeField] private Slider enemyHealth;
         [SerializeField] private Image enemyImage;
+        [SerializeField] private TextMeshProUGUI enemyAbilityDescription;
 
         public void Init(EnemyData enemyData)
         {
@@ -17,6 +18,7 @@ namespace EnemyComponents
             enemyHealth.maxValue = enemyData.healthPoints;
             enemyHealth.value =  enemyData.healthPoints;
             enemyImage.sprite = enemyData.image;
+            enemyAbilityDescription.text = enemyData.ability.AbilityDescription;
         }
 
         private void Start()

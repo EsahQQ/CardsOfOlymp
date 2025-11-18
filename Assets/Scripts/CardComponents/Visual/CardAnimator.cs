@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using BattleComponents;
@@ -28,6 +29,11 @@ namespace CardComponents.Visual
         [SerializeField] private GameObject placeholderPrefab;
         
         private LogicalDrop _drop;
+        
+        private Queue<IEnumerator> animationQueue = new Queue<IEnumerator>();
+        private bool isAnimating = false;
+        
+        public bool IsAnimating => isAnimating;
 
         private void Awake()
         {
@@ -42,10 +48,30 @@ namespace CardComponents.Visual
 
         private void OnCardAddToDrop(object sender, Card card)
         {
-            AnimateCardToDropPile(card);
+            QueueAnimation(AnimateCardToDropPile(card));
+        }
+        
+        public void QueueAnimation(IEnumerator animationCoroutine)
+        {
+            animationQueue.Enqueue(animationCoroutine);
+            if (!isAnimating)
+            {
+                StartCoroutine(ProcessAnimationQueue());
+            }
+        }
+        
+        private IEnumerator ProcessAnimationQueue()
+        {
+            isAnimating = true;
+            while (animationQueue.Count > 0)
+            {
+                yield return StartCoroutine(animationQueue.Dequeue());
+                yield return new WaitForSeconds(0.1f); 
+            }
+            isAnimating = false;
         }
 
-        private void AnimateCardToDropPile(Card cardToAnimate)
+        private IEnumerator AnimateCardToDropPile(Card cardToAnimate)
         {
             cardToAnimate.transform.SetParent(flyingInDropCards.transform, true);
             
@@ -64,12 +90,14 @@ namespace CardComponents.Visual
                         .SetEase(Ease.OutQuad);
                 });
             
+            yield return new WaitForSeconds(moveDuration);
+            
             DOVirtual.DelayedCall(moveDuration, () => {
                 Destroy(cardToAnimate.gameObject);
             });
         }
         
-        public void AnimateCardToHand(GameObject cardObject, Transform handContainer)
+        public IEnumerator AnimateCardToHand(GameObject cardObject, Transform handContainer)
         {
             
             cardObject.transform.position = deckTarget.position;
@@ -82,29 +110,26 @@ namespace CardComponents.Visual
             var placeholder = Instantiate(placeholderPrefab, handContainer);
             placeholder.SetActive(true);
             
-            StartCoroutine(MoveToPlaceholderCoroutine(cardObject.transform, placeholder.transform));
-        }
+            yield return null; 
+            
+            // Запускаем анимации
+            cardObject.transform.DOMove(placeholder.transform.position, drawMoveDuration).SetEase(drawMoveEase);
+            cardObject.transform.DORotateQuaternion(placeholder.transform.rotation, drawMoveDuration).SetEase(drawMoveEase);
 
-        private IEnumerator MoveToPlaceholderCoroutine(Transform cardToAnimate, Transform placeholder)
-        {
-            yield return null; // ждем 1 кадр, чтоб layoutgroup обновил позицию placeholder`а
-            
-            /*Vector3[] path = new Vector3[2];
-            path[0] = (cardToAnimate.transform.position + deckTarget.position) / 2 + Vector3.up * arcHeight; // Контрольная точка
-            path[1] = placeholder.position; 
-
-            cardToAnimate.transform.DOPath(path, moveDuration, PathType.CatmullRom)
-                .SetEase(moveEase);*/
-            
-            cardToAnimate.DOMove(placeholder.position, drawMoveDuration).SetEase(drawMoveEase);
-            cardToAnimate.DORotateQuaternion(placeholder.rotation, drawMoveDuration).SetEase(drawMoveEase);
-            
+            // Ждем завершения анимации
             yield return new WaitForSeconds(drawMoveDuration);
- 
-            cardToAnimate.SetParent(placeholder.parent);
-            cardToAnimate.SetSiblingIndex(placeholder.GetSiblingIndex());
+
+            // Завершаем перемещение и очистку
+            if (cardObject != null)
+            {
+                cardObject.transform.SetParent(placeholder.transform.parent);
+                cardObject.transform.SetSiblingIndex(placeholder.transform.GetSiblingIndex());
+            }
             
-            Destroy(placeholder.gameObject);
+            if (placeholder != null)
+            {
+                Destroy(placeholder.gameObject);
+            }
         }
     }
 }
