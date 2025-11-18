@@ -186,7 +186,7 @@ namespace Core
                 btn.onClick.AddListener(() => GameProgressionManager.Instance.BattleWon());
                 
                 var goldText = GameObject.Find("EarnedGold").GetComponent<TextMeshProUGUI>();
-                goldText.text = GameProgressionManager.Instance.GoldPerLevel.ToString();
+                goldText.text = "+" + GameProgressionManager.Instance.GoldPerLevel.ToString();
                 panel.SetActive(true);
             }
             else

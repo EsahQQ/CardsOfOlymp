@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0e5d9b257d8d479887aeb5d59be24cd8, type: 3}
-  m_Name: DamageAbility
+  m_Name: DamageAbility50
   m_EditorClassIdentifier: Assembly-CSharp::Card.Abilities.DamageAbility
-  AbilityDescription: Deals 25 points of damage
-  damage: 25
+  AbilityDescription: Deals 50 points of damage
+  damage: 50
   vfxPrefab: {fileID: 5332538794266968226, guid: 3654d53f875630c479116fd74de5413b, type: 3}

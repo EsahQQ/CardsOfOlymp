@@ -15,6 +15,6 @@ MonoBehaviour:
   cardName: Afrodita
   description: Afrodita is god of love
   image: {fileID: 21300000, guid: 43f147f58595a6f42b1f61bde89ea59d, type: 3}
-  manaCost: 4
+  manaCost: 2
   ability: {fileID: 11400000, guid: 95c9a4a4ee63a31479a150fc400fb49b, type: 2}
   price: 50

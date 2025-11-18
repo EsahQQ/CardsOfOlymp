@@ -11,7 +11,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private int cardsOnSaleCount = 3;
 
     [Header("Ссылки на UI")]
-    [SerializeField] private Transform cardSlotsParent;
+    [SerializeField] private Transform[] cardSlotsParents;
     [SerializeField] private GameObject shopCardPrefab;
     [SerializeField] private TextMeshProUGUI playerGoldText;
     [SerializeField] private Button continueButton;
@@ -28,29 +28,32 @@ public class ShopManager : MonoBehaviour
 
     private void GenerateWares()
     {
-        foreach (Transform child in cardSlotsParent)
+        foreach (var cardSlotsParent in cardSlotsParents)
         {
-            Destroy(child.gameObject);
-        }
-        _cardsForSale.Clear();
+            foreach (Transform child in cardSlotsParent)
+            {
+                Destroy(child.gameObject);
+            }
+            _cardsForSale.Clear();
         
-        List<CardData> availableCards = new List<CardData>(shopCardPool.allCards);
-        for (int i = 0; i < cardsOnSaleCount; i++)
-        {
-            if (availableCards.Count == 0) break;
+            List<CardData> availableCards = new List<CardData>(shopCardPool.allCards);
+            for (int i = 0; i < cardsOnSaleCount; i++)
+            {
+                if (availableCards.Count == 0) break;
 
-            int randomIndex = Random.Range(0, availableCards.Count);
-            CardData randomCard = availableCards[randomIndex];
+                int randomIndex = Random.Range(0, availableCards.Count);
+                CardData randomCard = availableCards[randomIndex];
             
-            _cardsForSale.Add(randomCard);
-            availableCards.RemoveAt(randomIndex); 
-        }
+                _cardsForSale.Add(randomCard);
+                availableCards.RemoveAt(randomIndex); 
+            }
         
-        foreach (var cardData in _cardsForSale)
-        {
-            GameObject shopCardObject = Instantiate(shopCardPrefab, cardSlotsParent);
+            foreach (var cardData in _cardsForSale)
+            {
+                GameObject shopCardObject = Instantiate(shopCardPrefab, cardSlotsParent);
 
-            shopCardObject.GetComponent<ShopCardUI>().Init(cardData, this);
+                shopCardObject.GetComponent<ShopCardUI>().Init(cardData, this);
+            }
         }
     }
     

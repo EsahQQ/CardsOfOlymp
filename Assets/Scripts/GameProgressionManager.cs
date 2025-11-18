@@ -5,6 +5,7 @@ using CardComponents;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class GameProgressionManager : MonoBehaviour
@@ -116,6 +117,9 @@ public class GameProgressionManager : MonoBehaviour
     
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (scene.name == "MainMenu")
+            GameObject.Find("StartGameButton").GetComponent<Button>().onClick.AddListener(StartNewRun);
+        
         var background = GameObject.Find("Background");
 
         background.transform.position = new Vector3(

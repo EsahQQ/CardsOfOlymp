@@ -15,6 +15,6 @@ MonoBehaviour:
   cardName: Hades
   description: Moves one random card from the drop to hand
   image: {fileID: 21300000, guid: 8478c3ffe86cc564c99f2cf067437325, type: 3}
-  manaCost: 3
+  manaCost: 1
   ability: {fileID: 11400000, guid: 7fbe7ccde1bfa2440bb61ac268d4926c, type: 2}
   price: 75
