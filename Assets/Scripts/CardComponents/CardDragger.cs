@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 namespace CardComponents
 {
     [RequireComponent(typeof(Card))] 
-    public class CardDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class CardDragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
     {
         [SerializeField] private GameObject placeholderPrefab;
 
@@ -15,11 +15,17 @@ namespace CardComponents
 
         [HideInInspector] public Transform DefaultParent;
 
+        private Transform _gameField;
+        private Transform _handField;
+        
         private void Awake()
         {
             _canvasGroup = GetComponent<CanvasGroup>();
             _rootCanvas = GetComponentInParent<Canvas>().rootCanvas;
-
+            
+            _gameField = GameObject.Find("GameField").transform;
+            _handField = GameObject.Find("Hand").transform;
+            
             if (placeholderPrefab != null)
             {
                 _placeholder = Instantiate(placeholderPrefab, _rootCanvas.transform);
@@ -98,6 +104,14 @@ namespace CardComponents
                 rect.sizeDelta = new Vector2(0, rect.sizeDelta.y);
             else
                 rect.sizeDelta = new Vector2(210, rect.sizeDelta.y);
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (transform.parent == _gameField)
+                transform.SetParent(_handField);
+            else
+                transform.SetParent(_gameField);
         }
     }
 }
