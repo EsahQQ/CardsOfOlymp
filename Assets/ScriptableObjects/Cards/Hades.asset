@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Hades
   m_EditorClassIdentifier: 
   cardName: Hades
-  description: Hades is god of the hell
+  description: Moves one random card from the drop to hand
   image: {fileID: 21300000, guid: 8478c3ffe86cc564c99f2cf067437325, type: 3}
   manaCost: 3
-  ability: {fileID: 11400000, guid: f77dec4f09711b747bbb5679b810df65, type: 2}
+  ability: {fileID: 11400000, guid: 7fbe7ccde1bfa2440bb61ac268d4926c, type: 2}
   price: 75

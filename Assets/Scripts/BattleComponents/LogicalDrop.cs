@@ -21,9 +21,9 @@ namespace BattleComponents
             return true;
         }
 
-        public void RemoveCard(Card card)
+        public void RemoveCard(CardData cardData)
         {
-            if (_cardsInDrop.Remove(card.CardData))
+            if (_cardsInDrop.Remove(cardData))
             {
                 OnDropChange?.Invoke(this, EventArgs.Empty); 
             }
