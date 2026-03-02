@@ -13,13 +13,12 @@ namespace Abilities.PlayerAbilities
         public override IEnumerator Execute(BattleContext context)
         {
             var enemyHitTake = context.Enemy.EnemyHitTake;
+
+            if (context.Enemy == null) yield break;
             
-            if (context.Enemy != null)
-            {
-                yield return AbilityAnimator.Instance.PlayVFX(enemyHitTake, vfxPrefab);
+            yield return AbilityAnimator.Instance.PlayVFX(enemyHitTake, vfxPrefab);
                 
-                context.Enemy.TakeDamage(damage);
-            }
+            context.Enemy.TakeDamage(damage);
         }
     }
 }

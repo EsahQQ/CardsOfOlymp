@@ -15,15 +15,15 @@ namespace Abilities.PlayerAbilities
             var logicalDrop = context.PlayerDrop;
             var logicalHand = context.PlayerHand;
             var dropUI = context.DropManager.DropContainer;
-            if (logicalDrop.CardCount > 0)
-            {
-                yield return AbilityAnimator.Instance.PlayVFX(dropUI.transform, vfxPrefab);
+            
+            if (logicalDrop.CardCount <= 0) yield break;
+            
+            yield return AbilityAnimator.Instance.PlayVFX(dropUI.transform, vfxPrefab);
                 
-                var rnd = Random.Range(0, logicalDrop.GetCards().Count);
-                var cardData = logicalDrop.GetCards()[rnd];
-                logicalDrop.RemoveCard(cardData);
-                logicalHand.TryAddCard(cardData);
-            }
+            var rnd = Random.Range(0, logicalDrop.GetCards().Count);
+            var cardData = logicalDrop.GetCards()[rnd];
+            logicalDrop.RemoveCard(cardData);
+            logicalHand.TryAddCard(cardData);
         }
     }
 }

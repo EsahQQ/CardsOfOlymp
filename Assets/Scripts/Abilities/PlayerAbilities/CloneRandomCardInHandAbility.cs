@@ -14,14 +14,14 @@ namespace Abilities.PlayerAbilities
         {
             var handManager = context.HandManager;
             var logicalHand = context.PlayerHand;
-            if (handManager.GetCardsInHand().Count > 0)
-            {
-                var rnd = Random.Range(0, handManager.GetCardsInHand().Count);
-                yield return AbilityAnimator.Instance.PlayVFX(handManager.GetCardsInHand()[rnd].transform, vfxPrefab);
+            
+            if (handManager.GetCardsInHand().Count <= 0) yield break;
+            
+            var rnd = Random.Range(0, handManager.GetCardsInHand().Count);
+            yield return AbilityAnimator.Instance.PlayVFX(handManager.GetCardsInHand()[rnd].transform, vfxPrefab);
                 
-                for (var i = 0; i < cloneCounts; i++)
-                    logicalHand.TryAddCard(handManager.GetCardsInHand()[rnd].CardData);
-            }
+            for (var i = 0; i < cloneCounts; i++)
+                logicalHand.TryAddCard(handManager.GetCardsInHand()[rnd].CardData);
         }
     }
 }

@@ -48,7 +48,6 @@ public class GameProgressionManager : MonoBehaviour
 
     public void StartNewRun()
     {
-        Debug.Log("Начинаем новое прохождение!");
         CurrentLevel = 1;
         PlayerGold = 0;
         
@@ -74,20 +73,15 @@ public class GameProgressionManager : MonoBehaviour
             
             availableCards.RemoveAt(randomIndex);
         }
-    
-        Debug.Log($"Сгенерирована колода из {PlayerDeck.Count} карт.");
     }
 
     public void StartNextBattle()
     {
-        Debug.Log($"Начинаем бой на уровне {CurrentLevel}");
-
         LoadScene("Main"); 
     }
 
     public void BattleWon()
     {
-        Debug.Log("Победа в бою!");
         CurrentLevel++;
         PlayerGold += goldPerLevel; 
         
@@ -96,8 +90,6 @@ public class GameProgressionManager : MonoBehaviour
 
     public void BattleLost()
     {
-        Debug.Log("Поражение!");
-
         LoadScene("MainMenu");
     }
 

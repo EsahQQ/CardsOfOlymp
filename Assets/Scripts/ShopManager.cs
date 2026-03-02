@@ -36,13 +36,13 @@ public class ShopManager : MonoBehaviour
             }
             _cardsForSale.Clear();
         
-            List<CardData> availableCards = new List<CardData>(shopCardPool.allCards);
-            for (int i = 0; i < cardsOnSaleCount; i++)
+            var availableCards = new List<CardData>(shopCardPool.allCards);
+            for (var i = 0; i < cardsOnSaleCount; i++)
             {
                 if (availableCards.Count == 0) break;
 
-                int randomIndex = Random.Range(0, availableCards.Count);
-                CardData randomCard = availableCards[randomIndex];
+                var randomIndex = Random.Range(0, availableCards.Count);
+                var randomCard = availableCards[randomIndex];
             
                 _cardsForSale.Add(randomCard);
                 availableCards.RemoveAt(randomIndex); 
@@ -50,7 +50,7 @@ public class ShopManager : MonoBehaviour
         
             foreach (var cardData in _cardsForSale)
             {
-                GameObject shopCardObject = Instantiate(shopCardPrefab, cardSlotsParent);
+                var shopCardObject = Instantiate(shopCardPrefab, cardSlotsParent);
 
                 shopCardObject.GetComponent<ShopCardUI>().Init(cardData, this);
             }
@@ -60,26 +60,20 @@ public class ShopManager : MonoBehaviour
     public bool TryBuyCard(CardData cardToBuy, ShopCardUI cardUI)
     {
         var progression = GameProgressionManager.Instance;
-        
-        if (progression.PlayerGold >= cardToBuy.price)
-        {
-            progression.ChangeGold(-cardToBuy.price);
-            
-            progression.PlayerDeck.Add(cardToBuy);
-            
-            Debug.Log($"Игрок купил карту {cardToBuy.cardName}!");
-            
-            UpdatePlayerGoldUI();
-            
-            cardUI.SetAsPurchased();
-            
-            return true;
-        }
-        else
+
+        if (progression.PlayerGold < cardToBuy.price)
         {
             Debug.Log("Недостаточно золота!");
             return false;
         }
+
+        progression.ChangeGold(-cardToBuy.price);
+        progression.PlayerDeck.Add(cardToBuy);
+        Debug.Log($"Игрок купил карту {cardToBuy.cardName}!");
+        UpdatePlayerGoldUI();
+        cardUI.SetAsPurchased();
+
+        return true;
     }
 
     private void UpdatePlayerGoldUI()

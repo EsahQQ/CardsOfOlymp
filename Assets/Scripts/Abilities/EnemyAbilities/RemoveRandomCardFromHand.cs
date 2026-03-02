@@ -13,16 +13,16 @@ namespace Abilities.EnemyAbilities
             var handManager = context.HandManager;
             var logicalHand = context.PlayerHand;
             var logicalDrop = context.PlayerDrop;
-            if (handManager.GetCardsInHand().Count > 0)
-            {
-                var rnd = Random.Range(0, handManager.GetCardsInHand().Count);
-                var card = handManager.GetCardsInHand()[rnd];
+            
+            if (handManager.GetCardsInHand().Count <= 0) yield break;
+            
+            var rnd = Random.Range(0, handManager.GetCardsInHand().Count);
+            var card = handManager.GetCardsInHand()[rnd];
                 
-                yield return AbilityAnimator.Instance.PlayVFX(card.transform, vfxPrefab);
+            yield return AbilityAnimator.Instance.PlayVFX(card.transform, vfxPrefab);
                 
-                logicalHand.RemoveCard(card);
-                logicalDrop.AddCard(card);
-            }
+            logicalHand.RemoveCard(card);
+            logicalDrop.AddCard(card);
         }
     }
 }

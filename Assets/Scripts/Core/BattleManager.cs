@@ -43,7 +43,7 @@ namespace Core
 
         private void Start()
         {
-            DeckData currentRunDeck = ScriptableObject.CreateInstance<DeckData>();
+            var currentRunDeck = ScriptableObject.CreateInstance<DeckData>();
             currentRunDeck.cards = GameProgressionManager.Instance.PlayerDeck;
         
             _deck = new LogicalDeck(currentRunDeck);
@@ -70,11 +70,13 @@ namespace Core
         
         public void EndPlayerTurn()
         {
-            if (isTurnProcessing) return; // Если ход уже обрабатывается, ничего не делаем
+            if (isTurnProcessing) return; 
             
             StartCoroutine(EndPlayerTurnSequence());
         }
 
+        
+        //TODO разбить на методы
         private IEnumerator EndPlayerTurnSequence()
         {
             var cardsOnField = playerField.GetComponentsInChildren<Card>();
@@ -83,7 +85,7 @@ namespace Core
             if (enemy == null || cardsOnField.Length <= 0)
             {
                 isTurnProcessing = false;
-                yield break; // Выходим из корутины
+                yield break; 
             }
 
             var neededMana = 0;
@@ -102,22 +104,21 @@ namespace Core
             
             foreach (var card in cardsOnField)
             {
-                if (card.CardData != null && card.CardData.ability != null)
+                if (card.CardData == null || card.CardData.ability == null) continue;
+                
+                yield return new WaitUntil(() => !CardAnimator.Instance.IsAnimating);
+                yield return StartCoroutine(card.CardData.ability.Execute(new BattleContext
                 {
-                    yield return new WaitUntil(() => !CardAnimator.Instance.IsAnimating);
-                    yield return StartCoroutine(card.CardData.ability.Execute(new BattleContext
-                    {
-                        Enemy = enemy,
-                        PlayerHand = _hand,
-                        PlayerDeck = _deck,
-                        PlayerDrop = _drop,
-                        PlayerMana = _mana,
-                        PlayerTurns = _turns,
-                        HandManager = uiHandManager,
-                        DeckManager = uiDeckManager,
-                        DropManager = uiDropManager,
-                    }));
-                }
+                    Enemy = enemy,
+                    PlayerHand = _hand,
+                    PlayerDeck = _deck,
+                    PlayerDrop = _drop,
+                    PlayerMana = _mana,
+                    PlayerTurns = _turns,
+                    HandManager = uiHandManager,
+                    DeckManager = uiDeckManager,
+                    DropManager = uiDropManager,
+                }));
             }
             
             if (enemy.CurrentHealth > 0)
@@ -147,11 +148,10 @@ namespace Core
             
             foreach (var card in cardsOnField)
             {
-                if (card.CardData != null)
-                {
-                    _hand.RemoveCard(card);
-                    _drop.AddCard(card);    
-                }
+                if (card.CardData == null) continue;
+                
+                _hand.RemoveCard(card);
+                _drop.AddCard(card);
             }
             
             yield return new WaitUntil(() => !CardAnimator.Instance.IsAnimating);
@@ -186,6 +186,7 @@ namespace Core
                 btn.onClick.RemoveAllListeners();
                 btn.onClick.AddListener(() => GameProgressionManager.Instance.BattleWon());
                 
+                //TODO убрать Find
                 var goldText = GameObject.Find("EarnedGold").GetComponent<TextMeshProUGUI>();
                 goldText.text = "+" + GameProgressionManager.Instance.GoldPerLevel.ToString();
                 panel.SetActive(true);

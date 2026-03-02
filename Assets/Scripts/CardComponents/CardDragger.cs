@@ -23,15 +23,15 @@ namespace CardComponents
             _canvasGroup = GetComponent<CanvasGroup>();
             _rootCanvas = GetComponentInParent<Canvas>().rootCanvas;
             
+            //TODO убрать Find
             _gameField = GameObject.Find("GameField").transform;
             _handField = GameObject.Find("Hand").transform;
+
+            if (placeholderPrefab == null) return;
             
-            if (placeholderPrefab != null)
-            {
-                _placeholder = Instantiate(placeholderPrefab, _rootCanvas.transform);
-                _placeholder.name = "Placeholder for " + this.gameObject.name;
-                _placeholder.SetActive(false);
-            }
+            _placeholder = Instantiate(placeholderPrefab, _rootCanvas.transform);
+            _placeholder.name = "Placeholder for " + this.gameObject.name;
+            _placeholder.SetActive(false);
         }
         
         public void OnBeginDrag(PointerEventData eventData)
@@ -56,18 +56,16 @@ namespace CardComponents
                 StartCoroutine(AnimatePlaceholder(false));
             }
 
-            int newSiblingIndex = DefaultParent.childCount;
-            for (int i = 0; i < DefaultParent.childCount; i++)
+            var newSiblingIndex = DefaultParent.childCount;
+            for (var i = 0; i < DefaultParent.childCount; i++)
             {
-                if (transform.position.x < DefaultParent.GetChild(i).position.x)
-                {
-                    newSiblingIndex = i;
-                    if (_placeholder.transform.GetSiblingIndex() < newSiblingIndex)
-                    {
-                        newSiblingIndex--;
-                    }
-                    break;
-                }
+                if (!(transform.position.x < DefaultParent.GetChild(i).position.x)) continue;
+                
+                newSiblingIndex = i;
+                if (_placeholder.transform.GetSiblingIndex() < newSiblingIndex)
+                    newSiblingIndex--;
+                
+                break;
             }
             _placeholder.transform.SetSiblingIndex(newSiblingIndex);
         }
@@ -89,21 +87,19 @@ namespace CardComponents
             var target = 210;
             if (into)
                 target = 0;
-            float elapsedTime = 0f;
+            var elapsedTime = 0f;
             while (elapsedTime < 0.35)
             {
                 elapsedTime += Time.deltaTime;
-                float t = elapsedTime / 0.35f;
-                if (into)
-                    rect.sizeDelta = new Vector2(Mathf.SmoothStep(210, target, t), rect.sizeDelta.y);
-                else
-                    rect.sizeDelta = new Vector2(Mathf.SmoothStep(0, target, t), rect.sizeDelta.y);
+                var t = elapsedTime / 0.35f;
+                rect.sizeDelta = into 
+                    ? new Vector2(Mathf.SmoothStep(210, target, t), rect.sizeDelta.y) 
+                    : new Vector2(Mathf.SmoothStep(0, target, t), rect.sizeDelta.y);
                 yield return null;
             }
-            if (into)
-                rect.sizeDelta = new Vector2(0, rect.sizeDelta.y);
-            else
-                rect.sizeDelta = new Vector2(210, rect.sizeDelta.y);
+            rect.sizeDelta = into 
+                ? new Vector2(0, rect.sizeDelta.y) 
+                : new Vector2(210, rect.sizeDelta.y);
         }
 
         public void OnPointerClick(PointerEventData eventData)

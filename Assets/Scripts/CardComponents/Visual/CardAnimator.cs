@@ -77,7 +77,7 @@ namespace CardComponents.Visual
             
             
             Vector3[] path = new Vector3[2];
-            path[0] = (cardToAnimate.transform.position + dropPileTarget.position) / 2 + Vector3.up * arcHeight; // Контрольная точка
+            path[0] = (cardToAnimate.transform.position + dropPileTarget.position) / 2 + Vector3.up * arcHeight; 
             path[1] = dropPileTarget.position; 
 
             cardToAnimate.transform.DOPath(path, moveDuration, PathType.CatmullRom)
@@ -111,15 +111,12 @@ namespace CardComponents.Visual
             placeholder.SetActive(true);
             
             yield return null; 
-            
-            // Запускаем анимации
+
             cardObject.transform.DOMove(placeholder.transform.position, drawMoveDuration).SetEase(drawMoveEase);
             cardObject.transform.DORotateQuaternion(placeholder.transform.rotation, drawMoveDuration).SetEase(drawMoveEase);
 
-            // Ждем завершения анимации
             yield return new WaitForSeconds(drawMoveDuration);
 
-            // Завершаем перемещение и очистку
             if (cardObject != null)
             {
                 cardObject.transform.SetParent(placeholder.transform.parent);

@@ -1,47 +1,44 @@
-﻿// AbilityAnimator.cs
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
-public class AbilityAnimator : MonoBehaviour
+namespace Abilities
 {
-    public static AbilityAnimator Instance { get; private set; }
-
-    // Ссылки на цели для анимаций
-    [Header("Цели для анимаций")]
-    [SerializeField] private Transform enemyVFXTarget;
-    [SerializeField] private Transform playerVFXTarget;
-    [SerializeField] private Transform background;
-    
-    private void Awake()
+    public class AbilityAnimator : MonoBehaviour
     {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-    }
+        public static AbilityAnimator Instance { get; private set; }
 
-    // Пример корутины для анимации урона
-    public IEnumerator PlayVFX(Transform target, GameObject vfxPrefab)
-    {
-        if (vfxPrefab != null && target != null)
-        {
-            var duration = vfxPrefab.GetComponentInChildren<ParticleSystem>().main.duration;
-            GameObject effectInstance = Instantiate(vfxPrefab, target.position, Quaternion.identity, background);
-            
-            Debug.Log(duration);
-            yield return new WaitForSeconds(duration);
-            
-            Destroy(effectInstance);
-        }
-        else
-        {
-            yield return new WaitForSeconds(0.2f);
-        }
-    }
+        [SerializeField] private Transform enemyVFXTarget;
+        [SerializeField] private Transform playerVFXTarget;
+        [SerializeField] private Transform background;
     
-    // Геттеры для целей, чтобы способности могли их получить
-    public Transform GetEnemyVFXTarget() => enemyVFXTarget;
-    public Transform GetPlayerVFXTarget() => playerVFXTarget;
+        private void Awake()
+        {
+            if (Instance != null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            Instance = this;
+        }
+
+        public IEnumerator PlayVFX(Transform target, GameObject vfxPrefab)
+        {
+            if (vfxPrefab != null && target != null)
+            {
+                var duration = vfxPrefab.GetComponentInChildren<ParticleSystem>().main.duration;
+                var effectInstance = Instantiate(vfxPrefab, target.position, Quaternion.identity, background);
+
+                yield return new WaitForSeconds(duration);
+            
+                Destroy(effectInstance);
+            }
+            else
+            {
+                yield return new WaitForSeconds(0.2f);
+            }
+        }
+
+        public Transform GetEnemyVFXTarget() => enemyVFXTarget;
+        public Transform GetPlayerVFXTarget() => playerVFXTarget;
+    }
 }

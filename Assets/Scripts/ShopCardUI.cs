@@ -1,4 +1,5 @@
 ﻿using CardComponents;
+using CardComponents.Visual;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
